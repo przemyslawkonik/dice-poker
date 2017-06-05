@@ -13,12 +13,12 @@ public class Player {
 
     public Player() {
         this.money = new Money(0);
-        diceBox = new DiceBox(6);
+        diceBox = new DiceBox(5);
     }
 
     public Player(Money money) {
         this.money = new Money(money);
-        diceBox = new DiceBox(6);
+        diceBox = new DiceBox(5);
     }
 
     public void bet(Money money, Pot pot) {

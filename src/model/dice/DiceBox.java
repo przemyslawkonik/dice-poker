@@ -21,15 +21,16 @@ public class DiceBox {
         }
     }
 
-    public void rollAll() {
+    public List<Dice> rollAll() {
         for(Dice d : dices) {
             d.roll();
         }
+        return dices;
     }
 
     public int roll(int numberOfDice) {
         if(numberOfDice < 0 && numberOfDice > dices.size()) {
-            //rzuc wyjatek
+            throw new IndexOutOfBoundsException("Such a dice is not existing");
         }
         return dices.get(numberOfDice).roll();
     }
