@@ -1,42 +1,32 @@
 package model;
 
-import model.value.Value;
-import model.value.ValueImpl;
-
 /**
  * Created by Przemysław Konik on 2017-06-05.
  */
 public class Player {
 
-    private Money money;
+    private Value money;
 
     public Player() {
-        this.money = new Money(new ValueImpl(0));
+        this.money = new Value(0);
     }
 
     public Player(Value money) {
-        this.money = new Money(money);
+        this.money = new Value(money);
     }
 
     public void bet(Value money, Pot pot) {
-        if(this.money.value().get() > money.get()) {
-            pot.value().increase(money);
-            this.money.value().decrease(money);
+        if(this.money.get() > money.get()) {
+            pot.getValue().increase(money);
+            this.money.decrease(money);
         }
     }
 
-    public void bet(int money, Pot pot) {
-        if(this.money.value().get() > money) {
-            pot.value().increase(money);
-            this.money.value().decrease(money);
-        }
-    }
-
-    public Money getMoney() {
+    public Value getMoney() {
         return money;
     }
 
-    public void setMoney(Money money) {
+    public void setMoney(Value money) {
         this.money = money;
     }
 }

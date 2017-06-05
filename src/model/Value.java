@@ -1,55 +1,44 @@
-package model.value;
+package model;
 
 /**
  * Created by Przemysław Konik on 2017-06-05.
  */
-public class ValueImpl implements Value {
+public class Value {
 
     private int value;
 
-    public ValueImpl() {
-
+    public Value() {
+        this.value = 0;
     }
 
-    public ValueImpl(int value) {
-        this.value = value;
-    }
-
-    public ValueImpl(Value value) {
+    public Value(Value value) {
         this.value = value.get();
     }
 
-    @Override
+    public Value(int value) {
+        this.value = value;
+    }
+
     public void increase(int value) {
         this.value += value;
     }
 
-    @Override
     public void increase(Value value) {
         this.value += value.get();
     }
 
-    @Override
     public void decrease(int value) {
         this.value -= value;
     }
 
-    @Override
     public void decrease(Value value) {
         this.value -= value.get();
     }
 
-    @Override
     public void set(int value) {
         this.value = value;
     }
 
-    @Override
-    public void set(Value value) {
-        this.value = value.get();
-    }
-
-    @Override
     public int get() {
         return value;
     }
