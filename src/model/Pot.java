@@ -1,25 +1,27 @@
 package model;
 
+import model.money.Money;
+
 /**
  * Created by Przemysław Konik on 2017-06-05.
  */
 public class Pot {
 
-    private Value value;
+    private Money money;
 
     public Pot() {
-        this.value = new Value(0);
+        this.money = new Money(0);
     }
 
-    public Pot(Value value) {
-        this.value = new Value(value);
+    public Pot(Money money) {
+        this.money = new Money(money);
     }
 
-    public Value getValue() {
-        return value;
+    public Money getMoney() {
+        return money;
     }
 
-    public void setValue(Value value) {
-        this.value = value;
+    public void setMoney(Money money) {
+        this.money = money;
     }
 }

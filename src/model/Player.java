@@ -1,37 +1,38 @@
 package model;
 
 import model.dice.DiceBox;
+import model.money.Money;
 
 /**
  * Created by Przemysław Konik on 2017-06-05.
  */
 public class Player {
 
-    private Value money;
+    private Money money;
     private DiceBox diceBox;
 
     public Player() {
-        this.money = new Value(0);
+        this.money = new Money(0);
         diceBox = new DiceBox(6);
     }
 
-    public Player(Value money) {
-        this.money = new Value(money);
+    public Player(Money money) {
+        this.money = new Money(money);
         diceBox = new DiceBox(6);
     }
 
-    public void bet(Value money, Pot pot) {
-        if(this.money.get() > money.get()) {
-            pot.getValue().increase(money);
+    public void bet(Money money, Pot pot) {
+        if(this.money.getValue() > money.getValue()) {
+            pot.getMoney().increase(money);
             this.money.decrease(money);
         }
     }
 
-    public Value getMoney() {
+    public Money getMoney() {
         return money;
     }
 
-    public void setMoney(Value money) {
+    public void setMoney(Money money) {
         this.money = money;
     }
 
