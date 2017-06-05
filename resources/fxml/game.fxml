@@ -6,18 +6,17 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane fx:controller="controllers.GameController" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GameController">
    <center>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" spacing="40.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ToggleButton mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                  <ToggleButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                  <ToggleButton layoutX="60.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                  <ToggleButton layoutX="110.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                  <ToggleButton layoutX="160.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="enemyDice1" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="enemyDice2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="enemyDice3" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="enemyDice4" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="enemyDice5" layoutX="160.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </HBox>
             <HBox VBox.vgrow="ALWAYS">
@@ -31,11 +30,11 @@
             </HBox>
             <HBox alignment="CENTER" spacing="40.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ToggleButton mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                  <ToggleButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                  <ToggleButton layoutX="60.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                  <ToggleButton layoutX="110.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                  <ToggleButton layoutX="160.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="playerDice1" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="playerDice2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="playerDice3" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="playerDice4" layoutX="110.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                  <ToggleButton fx:id="playerDice5" layoutX="160.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </HBox>
          </children>
