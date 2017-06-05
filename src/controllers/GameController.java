@@ -2,7 +2,10 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -35,6 +38,28 @@ public class GameController implements Initializable{
     private ToggleButton enemyDice4;
     @FXML
     private ToggleButton enemyDice5;
+    @FXML
+    private Label playerCombination;
+    @FXML
+    private Label enemyCombination;
+    @FXML
+    private Circle playerWinMark1;
+    @FXML
+    private Circle playerWinMark2;
+    @FXML
+    private Circle enemyWinMark1;
+    @FXML
+    private Circle enemyWinMark2;
+    @FXML
+    private Label wonLabel;
+    @FXML
+    private Label lostLabel;
+    @FXML
+    private Label drawLabel;
+    @FXML
+    private Label potLabel;
+    @FXML
+    private Button actionButton;
 
     private List<ToggleButton> playerDices;
     private List<ToggleButton> enemyDices;
