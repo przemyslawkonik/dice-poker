@@ -3,7 +3,7 @@ package model.dice;
 import java.util.Random;
 
 /**
- * Created by Przemysław Konik on 2017-06-05.
+ * Created by Przemysław Konik on 2017-06-06.
  */
 public class StandardDice extends Dice {
 
@@ -12,7 +12,8 @@ public class StandardDice extends Dice {
     }
 
     @Override
-    public int roll() {
-        return result = new Random().nextInt(mesh)+1;
+    protected void roll() {
+        int rnd = new Random().nextInt(mesh)+1;
+        value.setValue(""+rnd);
     }
 }

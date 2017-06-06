@@ -1,29 +1,36 @@
 package model.dice;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
- * Created by Przemysław Konik on 2017-06-05.
+ * Created by Przemysław Konik on 2017-06-06.
  */
 public abstract class Dice {
 
+    protected StringProperty value;
     protected final int mesh;
-    protected int result;
 
     public Dice(int mesh) {
+        value = new SimpleStringProperty();
         this.mesh = mesh;
-        result = 0;
     }
 
-    public abstract int roll();
+    protected abstract void roll();
+
+    public String getValue() {
+        return value.get();
+    }
+
+    public StringProperty valueProperty() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value.set(value);
+    }
 
     public int getMesh() {
         return mesh;
-    }
-
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
     }
 }

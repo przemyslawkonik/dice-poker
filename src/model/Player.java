@@ -1,13 +1,12 @@
 package model;
 
-import model.dice.DiceBox;
 import model.money.Money;
 
 /**
  * Created by Przemysław Konik on 2017-06-05.
  */
 public class Player {
-
+/*
     private Money money;
     private DiceBox diceBox;
 
@@ -43,4 +42,5 @@ public class Player {
     public void setDiceBox(DiceBox diceBox) {
         this.diceBox = diceBox;
     }
+    */
 }

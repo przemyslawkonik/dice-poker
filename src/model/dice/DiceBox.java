@@ -4,42 +4,34 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Przemysław Konik on 2017-06-05.
+ * Created by Przemysław Konik on 2017-06-06.
  */
 public class DiceBox {
 
-    private List<Dice> dices;
+    private final List<Dice> dices;
 
-    public DiceBox(int numberOfDices) {
+    public DiceBox(int diceAmount) {
         dices = new LinkedList<>();
-        initDices(numberOfDices);
+        initList(diceAmount);
     }
 
-    private void initDices(int numberOfDices) {
+    public void rollAll() {
+        for(Dice d : dices) {
+            d.roll();
+        }
+    }
+
+    public int getDiceAmount() {
+        return dices.size();
+    }
+
+    private void initList(int numberOfDices) {
         for(int i=0; i<numberOfDices; i++) {
             dices.add(new StandardDice());
         }
     }
 
-    public List<Dice> rollAll() {
-        for(Dice d : dices) {
-            d.roll();
-        }
-        return dices;
-    }
-
-    public int roll(int numberOfDice) {
-        if(numberOfDice < 0 && numberOfDice > dices.size()) {
-            throw new IndexOutOfBoundsException("Such a dice is not existing");
-        }
-        return dices.get(numberOfDice).roll();
-    }
-
     public List<Dice> getDices() {
         return dices;
-    }
-
-    public void setDices(List<Dice> dices) {
-        this.dices = dices;
     }
 }
