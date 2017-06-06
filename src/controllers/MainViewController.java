@@ -3,8 +3,8 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import model.combination.DicePokerCombination;
+import model.combination.Arrangement;
+import model.combination.DicePokerArrangement;
 import model.dice.DiceBox;
 
 import java.net.URL;
@@ -30,23 +30,23 @@ public class MainViewController implements Initializable {
     @FXML
     private CombinationController playerCombinationController;
 
-    private DicePokerCombination enemyDicePokerCombination;
+    private Arrangement enemyDicePokerCombination;
     private DiceBox enemyDiceBox;
 
-    private DicePokerCombination playerDicePokerCombination;
+    private Arrangement playerDicePokerCombination;
     private DiceBox playerDiceBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playerDiceBox = new DiceBox(5);
-        playerDicePokerCombination = new DicePokerCombination(playerDiceBox.getDices());
+        playerDicePokerCombination = new DicePokerArrangement(playerDiceBox);
 
         playerDicesController.bindDices(playerDiceBox);
         playerCombinationController.bindCombination(playerDicePokerCombination);
 
 
         enemyDiceBox = new DiceBox(5);
-        enemyDicePokerCombination = new DicePokerCombination(enemyDiceBox.getDices());
+        enemyDicePokerCombination = new DicePokerArrangement(enemyDiceBox);
 
         enemyDicesController.bindDices(enemyDiceBox);
         enemyCombinationController.bindCombination(enemyDicePokerCombination);

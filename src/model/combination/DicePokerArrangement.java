@@ -1,10 +1,8 @@
 package model.combination;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import model.dice.Dice;
+import model.dice.DiceBox;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,45 +12,53 @@ import java.util.Map;
 /**
  * Created by Przemysław Konik on 2017-06-06.
  */
-public class DicePokerCombination {
+public class DicePokerArrangement implements Arrangement {
 
-    private StringProperty combination;
+    private ObjectProperty<Combination> combination;
     private List<IntegerProperty> dicesValues;
 
-    public DicePokerCombination(List<Dice> dices) {
-        combination = new SimpleStringProperty();
+    public DicePokerArrangement(DiceBox diceBox) {
+        combination = new SimpleObjectProperty<>(Combination.NOTHING);
         dicesValues = new LinkedList<>();
-        bindValues(dices);
+        bindValues(diceBox);
     }
 
-    private void bindValues(List<Dice> dices) {
-        for(int i=0; i<dices.size(); i++) {
+    private void bindValues(DiceBox diceBox) {
+        List<Dice> diceList = diceBox.getDices();
+        for(int i=0; i<diceList.size(); i++) {
             dicesValues.add(new SimpleIntegerProperty());
-            dicesValues.get(i).bind(dices.get(i).valueProperty());
+            dicesValues.get(i).bind(diceList.get(i).valueProperty());
         }
     }
 
-    public void calculate() {
+    @Override
+    public ObjectProperty<Combination> combinationProperty() {
+        return combination;
+    }
+
+    @Override
+    public Combination calculate() {
         Map<Integer, Integer> map = sort();
 
         if (isStraightFlush(map))
-            combination.setValue(Combination.STRAIGHT_FLUSH.toString());
+            combination.setValue(Combination.STRAIGHT_FLUSH);
         else if (isQuads(map))
-            combination.setValue(Combination.QUADS.toString());
+            combination.setValue(Combination.QUADS);
         else if (isFullHouse(map))
-            combination.setValue(Combination.FULL_HOUSE.toString());
+            combination.setValue(Combination.FULL_HOUSE);
         else if (isBigStraight(map))
-            combination.setValue(Combination.BIG_STRAIGHT.toString());
+            combination.setValue(Combination.BIG_STRAIGHT);
         else if (isSmallStraight(map))
-            combination.setValue(Combination.SMALL_STRAIGHT.toString());
+            combination.setValue(Combination.SMALL_STRAIGHT);
         else if (isThreeOfAKind(map))
-            combination.setValue(Combination.THREE_OF_A_KIND.toString());
+            combination.setValue(Combination.THREE_OF_A_KIND);
         else if (isTwoPair(map))
-            combination.setValue(Combination.TWO_PAIR.toString());
+            combination.setValue(Combination.TWO_PAIR);
         else if (isPair(map))
-            combination.setValue(Combination.ONE_PAIR.toString());
+            combination.setValue(Combination.ONE_PAIR);
         else
-            combination.setValue(Combination.NOTHING.toString());
+            combination.setValue(Combination.NOTHING);
+        return combination.getValue();
     }
 
     //kluczem mapy jest liczba oczek, a wartoscia ilosc wystapien
@@ -97,10 +103,6 @@ public class DicePokerCombination {
 
     private boolean isPair(Map<Integer, Integer> map) {
         return (map.containsValue(2) && map.size() == 4);
-    }
-
-    public StringProperty combinationProperty() {
-        return combination;
     }
 
 }

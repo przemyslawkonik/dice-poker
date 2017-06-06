@@ -3,7 +3,7 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import model.combination.DicePokerCombination;
+import model.combination.Arrangement;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +21,7 @@ public class CombinationController implements Initializable {
 
     }
 
-    public void bindCombination(DicePokerCombination dicePokerCombination) {
-        combination.textProperty().bind(dicePokerCombination.combinationProperty());
+    public void bindCombination(Arrangement arrangement) {
+        combination.textProperty().bind(arrangement.combinationProperty().asString());
     }
 }

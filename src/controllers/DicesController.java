@@ -43,12 +43,19 @@ public class DicesController implements Initializable {
 
     public void bindDices(DiceBox diceBox) {
         List<Dice> diceList = diceBox.getDices();
-        bindDicesValues(diceList);
+        bindDicesValue(diceList);
+        bindDicesMark(diceList);
     }
 
-    private void bindDicesValues(List<Dice> dices) {
+    private void bindDicesValue(List<Dice> dices) {
         for(int i=0; i<this.dices.size(); i++ ) {
             this.dices.get(i).textProperty().bind(dices.get(i).valueProperty().asString());
+        }
+    }
+
+    private void bindDicesMark(List<Dice> dices) {
+        for(int i=0; i<this.dices.size(); i++ ) {
+            dices.get(i).markProperty().bind(this.dices.get(i).hoverProperty());
         }
     }
 }

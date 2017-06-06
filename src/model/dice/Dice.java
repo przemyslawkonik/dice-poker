@@ -1,6 +1,8 @@
 package model.dice;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -10,10 +12,12 @@ public abstract class Dice {
 
     protected IntegerProperty value;
     protected final int mesh;
+    protected BooleanProperty mark;
 
     public Dice(int mesh) {
         value = new SimpleIntegerProperty();
         this.mesh = mesh;
+        mark = new SimpleBooleanProperty(false);
     }
 
     protected abstract void roll();
@@ -32,5 +36,17 @@ public abstract class Dice {
 
     public int getMesh() {
         return mesh;
+    }
+
+    public boolean isMark() {
+        return mark.get();
+    }
+
+    public BooleanProperty markProperty() {
+        return mark;
+    }
+
+    public void setMark(boolean mark) {
+        this.mark.set(mark);
     }
 }
