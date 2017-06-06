@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ToggleButton;
 import model.dice.Dice;
+import model.dice.DiceBox;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -40,8 +41,9 @@ public class DicesController implements Initializable {
         ));
     }
 
-    public void bindDices(List<Dice> dices) {
-        bindDicesValues(dices);
+    public void bindDices(DiceBox diceBox) {
+        List<Dice> diceList = diceBox.getDices();
+        bindDicesValues(diceList);
     }
 
     private void bindDicesValues(List<Dice> dices) {

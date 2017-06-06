@@ -19,13 +19,19 @@ public class MainViewController implements Initializable {
     private Button rollButton;
 
     @FXML
-    private Label combinationLabel;
-
-    @FXML
     private DicesController enemyDicesController;
 
     @FXML
+    private CombinationController enemyCombinationController;
+
+    @FXML
     private DicesController playerDicesController;
+
+    @FXML
+    private CombinationController playerCombinationController;
+
+    private DicePokerCombination enemyDicePokerCombination;
+    private DiceBox enemyDiceBox;
 
     private DicePokerCombination playerDicePokerCombination;
     private DiceBox playerDiceBox;
@@ -34,14 +40,25 @@ public class MainViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         playerDiceBox = new DiceBox(5);
         playerDicePokerCombination = new DicePokerCombination(playerDiceBox.getDices());
-        playerDicesController.bindDices(playerDiceBox.getDices());
 
-        combinationLabel.textProperty().bind(playerDicePokerCombination.combinationProperty());
+        playerDicesController.bindDices(playerDiceBox);
+        playerCombinationController.bindCombination(playerDicePokerCombination);
+
+
+        enemyDiceBox = new DiceBox(5);
+        enemyDicePokerCombination = new DicePokerCombination(enemyDiceBox.getDices());
+
+        enemyDicesController.bindDices(enemyDiceBox);
+        enemyCombinationController.bindCombination(enemyDicePokerCombination);
+
     }
 
     @FXML
     public void handleAction() {
         playerDiceBox.rollAll();
+        enemyDiceBox.rollAll();
+
         playerDicePokerCombination.calculate();
+        enemyDicePokerCombination.calculate();
     }
 }

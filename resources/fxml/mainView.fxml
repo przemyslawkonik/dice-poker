@@ -23,7 +23,8 @@
    <left>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Combination" fx:id="combinationLabel" />
+            <fx:include source="combination.fxml" fx:id="enemyCombination"/>
+            <fx:include source="combination.fxml" fx:id="playerCombination"/>
          </children>
       </VBox>
    </left>
