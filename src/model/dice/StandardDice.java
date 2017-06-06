@@ -13,7 +13,6 @@ public class StandardDice extends Dice {
 
     @Override
     protected void roll() {
-        int rnd = new Random().nextInt(mesh)+1;
-        value.setValue(""+rnd);
+        valueProperty().setValue(new Random().nextInt(mesh)+1);
     }
 }

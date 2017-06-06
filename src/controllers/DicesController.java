@@ -43,11 +43,11 @@ public class DicesController implements Initializable {
 
     private void init() {
         List<Dice> diceList = dices.getDices();
-        dice1.textProperty().bind(diceList.get(0).valueProperty());
-        dice2.textProperty().bind(diceList.get(1).valueProperty());
-        dice3.textProperty().bind(diceList.get(2).valueProperty());
-        dice4.textProperty().bind(diceList.get(3).valueProperty());
-        dice5.textProperty().bind(diceList.get(4).valueProperty());
+        dice1.textProperty().bind(diceList.get(0).valueProperty().asString());
+        dice2.textProperty().bind(diceList.get(1).valueProperty().asString());
+        dice3.textProperty().bind(diceList.get(2).valueProperty().asString());
+        dice4.textProperty().bind(diceList.get(3).valueProperty().asString());
+        dice5.textProperty().bind(diceList.get(4).valueProperty().asString());
     }
 
     public DiceBox getDices() {

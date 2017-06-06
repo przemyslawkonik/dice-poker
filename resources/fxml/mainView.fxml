@@ -8,16 +8,23 @@
     <center>
         <VBox alignment="CENTER" BorderPane.alignment="CENTER">
            <children>
-               <fx:include source="dices.fxml" fx:id="enemyDices" />
-               <fx:include source="dices.fxml" fx:id="playerDices"/>
+               <fx:include fx:id="enemyDices" source="dices.fxml" />
+               <fx:include fx:id="playerDices" source="dices.fxml" />
            </children>
         </VBox>
     </center>
    <right>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="rollButton" onAction="#handleAction" mnemonicParsing="false" text="Button" />
+            <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" text="Button" />
          </children>
       </VBox>
    </right>
+   <left>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Combination" fx:id="combinationLabel" />
+         </children>
+      </VBox>
+   </left>
 </BorderPane>
