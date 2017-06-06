@@ -34,9 +34,6 @@ public class DicePokerCombination {
 
     public void calculate() {
         Map<Integer, Integer> map = sort();
-        for (Map.Entry<Integer, Integer> m : map.entrySet()) {
-            System.out.println("key:" + m.getKey() + " value: " + m.getValue());
-        }
 
         if (isStraightFlush(map))
             combination.setValue(Combination.STRAIGHT_FLUSH.toString());

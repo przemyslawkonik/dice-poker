@@ -21,6 +21,13 @@ public class DiceBox {
         }
     }
 
+    public void roll(int dice) {
+        if(dice < 0 || dice > dices.size()) {
+            throw new ArrayIndexOutOfBoundsException("Given dice is not existing");
+        }
+        dices.get(dice).roll();
+    }
+
     public int getDiceAmount() {
         return dices.size();
     }

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.combination.DicePokerCombination;
+import model.dice.DiceBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,18 +27,21 @@ public class MainViewController implements Initializable {
     @FXML
     private DicesController playerDicesController;
 
-    private DicePokerCombination dicePokerCombination;
+    private DicePokerCombination playerDicePokerCombination;
+    private DiceBox playerDiceBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dicePokerCombination = new DicePokerCombination(playerDicesController.getDices().getDices());
-        combinationLabel.textProperty().bind(dicePokerCombination.combinationProperty());
+        playerDiceBox = new DiceBox(5);
+        playerDicePokerCombination = new DicePokerCombination(playerDiceBox.getDices());
+        playerDicesController.bindDices(playerDiceBox.getDices());
+
+        combinationLabel.textProperty().bind(playerDicePokerCombination.combinationProperty());
     }
 
     @FXML
     public void handleAction() {
-        playerDicesController.getDices().rollAll();
-        dicePokerCombination.calculate();
-        System.out.println(dicePokerCombination.combinationProperty().getValue());
+        playerDiceBox.rollAll();
+        playerDicePokerCombination.calculate();
     }
 }
