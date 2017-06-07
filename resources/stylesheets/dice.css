@@ -2,6 +2,19 @@
     -fx-border-color: orangered;
 }
 
-#unmarked {
-    -fx-border-color: aqua ;
+#marked:hover {
+    -fx-background-color: chartreuse;
 }
+
+#marked:selected {
+    -fx-background-color: chartreuse;
+}
+
+#unmarked:hover {
+    -fx-background-color: chartreuse;
+}
+
+#unmarked:selected {
+    -fx-background-color: chartreuse;
+}
+

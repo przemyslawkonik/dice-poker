@@ -32,6 +32,7 @@ public class MainViewController implements Initializable {
     private Player human;
     private Player enemy;
     private Game game;
+    private boolean first = true;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,6 +46,12 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void handleAction() {
-        game.play();
+        if(first) {
+            game.playFirstRound();
+            first = false;
+        } else {
+            game.playSecondRound();
+            first = true;
+        }
     }
 }

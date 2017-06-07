@@ -53,6 +53,14 @@ public class DiceBox {
         }
     }
 
+    public void setVisibleSelected(boolean visibility) {
+        for(Dice d : dices) {
+            if(d.isSelected()) {
+                d.setVisible(visibility);
+            }
+        }
+    }
+
     public void setVisibleAll(boolean visibility) {
         for(Dice d : dices) {
             d.setVisible(visibility);
