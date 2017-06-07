@@ -30,6 +30,12 @@ public class MainViewController implements Initializable {
     @FXML
     private ArrangementController playerArrangementController;
 
+    @FXML
+    private MoneyController playerMoneyController;
+
+    @FXML
+    private PotController potController;
+
     private Player human;
     private Player enemy;
     private Game game;
@@ -41,6 +47,10 @@ public class MainViewController implements Initializable {
         //enemyArrangementController.getArrangement().setDices(enemyDicesController.getDiceBox().getDices());
         human = new Player(playerDicesController.getDiceBox(), playerArrangementController.getArrangement(), new Money(500));
         enemy = new Player(enemyDicesController.getDiceBox(), enemyArrangementController.getArrangement(), new Money(500));
+
+        playerMoneyController.getMoney().textProperty().bind(human.getMoney().valueProperty().asString());
+        human.bet(300, potController.getPot());
+
         game = new Game(human, enemy);
         game.prepare();
     }

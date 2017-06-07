@@ -16,6 +16,7 @@
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" text="Button" />
+             <fx:include source="money.fxml" fx:id="playerMoney"/>
          </children>
       </VBox>
    </right>
@@ -23,6 +24,7 @@
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <fx:include source="arrangement.fxml" fx:id="enemyArrangement"/>
+             <fx:include source="pot.fxml" fx:id="pot"/>
             <fx:include source="arrangement.fxml" fx:id="playerArrangement"/>
          </children>
       </VBox>
