@@ -1,0 +1,7 @@
+#marked {
+    -fx-border-color: orangered;
+}
+
+#unmarked {
+    -fx-border-color: aqua ;
+}

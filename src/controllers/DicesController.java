@@ -39,12 +39,13 @@ public class DicesController implements Initializable {
         dices = new LinkedList<>(Arrays.asList(
                 dice1, dice2, dice3, dice4, dice5
         ));
+
     }
 
     public void bindDices(DiceBox diceBox) {
         List<Dice> diceList = diceBox.getDices();
         bindDicesValue(diceList);
-        bindDicesMark(diceList);
+        bindDicesStyle(diceList);
     }
 
     private void bindDicesValue(List<Dice> dices) {
@@ -53,9 +54,9 @@ public class DicesController implements Initializable {
         }
     }
 
-    private void bindDicesMark(List<Dice> dices) {
+    private void bindDicesStyle(List<Dice> dices) {
         for(int i=0; i<this.dices.size(); i++ ) {
-            dices.get(i).markProperty().bind(this.dices.get(i).hoverProperty());
+            this.dices.get(i).idProperty().bind(dices.get(i).styleProperty().asString());
         }
     }
 }
