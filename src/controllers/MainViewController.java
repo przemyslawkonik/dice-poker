@@ -3,6 +3,7 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import model.bet.Bet;
 import model.game.Game;
 import model.money.Money;
 import model.player.Player;
@@ -49,21 +50,25 @@ public class MainViewController implements Initializable {
         enemy = new Player(enemyDicesController.getDiceBox(), enemyArrangementController.getArrangement(), new Money(500));
 
         playerMoneyController.getMoney().textProperty().bind(human.getMoney().valueProperty().asString());
-        human.bet(300, potController.getPot());
+        //human.bet(300, potController.getPot());
 
         game = new Game(human, enemy);
         game.prepare();
     }
 
     @FXML
-    public void handleAction() {
+    public void handleAction() throws Exception{
         if(first) {
             game.prepare();
-            game.playFirstRound();
-            first = false;
+            if(new Bet().set(human, potController.getPot(), "Set bet")) {
+                game.playFirstRound();
+                first = false;
+            }
         } else {
-            game.playSecondRound();
-            first = true;
+            if(new Bet().set(human, potController.getPot(), "Increase bet")) {
+                game.playSecondRound();
+                first = true;
+            }
         }
     }
 }
