@@ -15,22 +15,13 @@ import java.util.Map;
 public class DicePokerArrangement implements Arrangement {
 
     private ObjectProperty<Combination> combination;
-    private List<IntegerProperty> dicesValues;
+    private DiceBox diceBox;
 
     public DicePokerArrangement(DiceBox diceBox) {
         combination = new SimpleObjectProperty<>(Combination.NOTHING);
-        dicesValues = new LinkedList<>();
-        bindValues(diceBox);
+        this.diceBox = diceBox;
     }
-
-    private void bindValues(DiceBox diceBox) {
-        List<Dice> diceList = diceBox.getDices();
-        for(int i=0; i<diceList.size(); i++) {
-            dicesValues.add(new SimpleIntegerProperty());
-            dicesValues.get(i).bind(diceList.get(i).valueProperty());
-        }
-    }
-
+    
     @Override
     public ObjectProperty<Combination> combinationProperty() {
         return combination;
@@ -64,8 +55,10 @@ public class DicePokerArrangement implements Arrangement {
     //kluczem mapy jest liczba oczek, a wartoscia ilosc wystapien
     private Map<Integer, Integer> sort() {
         Map<Integer, Integer> map = new HashMap<>();
-        for(IntegerProperty ip : dicesValues) {
-            int key = ip.getValue();
+        List<Integer> dicesValues = getDicesValues();
+
+        for(Integer i : dicesValues) {
+            int key = i;
             if(map.containsKey(key)) {
                 int value = map.get(key);
                 value++;
@@ -75,6 +68,15 @@ public class DicePokerArrangement implements Arrangement {
             }
         }
         return map;
+    }
+
+    private List<Integer> getDicesValues() {
+        List<Dice> dices = diceBox.getDices();
+        List<Integer> dicesValues = new LinkedList<>();
+        for(Dice d : dices) {
+            dicesValues.add(d.getValue());
+        }
+        return dicesValues;
     }
 
     private boolean isStraightFlush(Map<Integer, Integer> map) {
@@ -105,4 +107,14 @@ public class DicePokerArrangement implements Arrangement {
         return (map.containsValue(2) && map.size() == 4);
     }
 
+    private void markDices(Combination combination, Map<Integer, Integer> map) {
+        unMarkDices();
+
+    }
+
+    private void unMarkDices() {
+        for(Dice d : diceBox.getDices()) {
+            d.setMark(false);
+        }
+    }
 }
