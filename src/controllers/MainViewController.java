@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import model.game.Game;
+import model.money.Money;
 import model.player.Player;
 
 import java.net.URL;
@@ -38,8 +39,8 @@ public class MainViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //playerArrangementController.getArrangement().setDices(playerDicesController.getDiceBox().getDices());
         //enemyArrangementController.getArrangement().setDices(enemyDicesController.getDiceBox().getDices());
-        human = new Player(playerDicesController.getDiceBox(), playerArrangementController.getArrangement());
-        enemy = new Player(enemyDicesController.getDiceBox(), enemyArrangementController.getArrangement());
+        human = new Player(playerDicesController.getDiceBox(), playerArrangementController.getArrangement(), new Money(500));
+        enemy = new Player(enemyDicesController.getDiceBox(), enemyArrangementController.getArrangement(), new Money(500));
         game = new Game(human, enemy);
         game.prepare();
     }
