@@ -5,24 +5,30 @@ package model.combination;
  */
 public enum Combination {
 
-    STRAIGHT_FLUSH("Straight flush"),
-    QUADS("Quads"),
-    FULL_HOUSE("Full house"),
-    BIG_STRAIGHT("Big straight"),
-    SMALL_STRAIGHT("Small straight"),
-    THREE_OF_A_KIND("Three of a kind"),
-    TWO_PAIR("Two pairs"),
-    ONE_PAIR("One pair"),
-    NOTHING("Nothing");
+    STRAIGHT_FLUSH("Straight flush", 8),
+    QUADS("Quads", 7),
+    FULL_HOUSE("Full house", 6),
+    BIG_STRAIGHT("Big straight", 5),
+    SMALL_STRAIGHT("Small straight", 4),
+    THREE_OF_A_KIND("Three of a kind", 3),
+    TWO_PAIR("Two pairs", 2),
+    ONE_PAIR("One pair", 1),
+    NOTHING("Nothing", 0);
 
     private String combination;
+    private int worth;
 
-    private Combination(String combination) {
+    private Combination(String combination, int worth) {
         this.combination = combination;
+        this.worth = worth;
     }
 
     @Override
     public String toString() {
         return combination;
+    }
+
+    public int getWorth() {
+        return worth;
     }
 }

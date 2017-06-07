@@ -15,6 +15,7 @@ public class Arrangement extends Label {
 
     private ObjectProperty<Combination> combination;
     private List<Dice> dices;
+    private int combinationValue;
 
     public Arrangement() {
         initVariables();
@@ -61,6 +62,7 @@ public class Arrangement extends Label {
             combination.setValue(Combination.NOTHING);
 
         markDices(map);
+        setCombinationValue(map);
         return combination.getValue();
     }
 
@@ -183,4 +185,75 @@ public class Arrangement extends Label {
         }
         return 0;
     }
+
+    private List<Integer> findKeys(int value, Map<Integer, Integer> map) {
+        Set<Integer> keys = map.keySet();
+        List<Integer> k = new ArrayList<>();
+
+        for (Integer key : keys) {
+            if (map.get(key) == value)
+                k.add(key);
+        }
+        return k;
+    }
+
+    private void setCombinationValue(Map<Integer, Integer> map) {
+        switch (combination.getValue()) {
+            case STRAIGHT_FLUSH: {
+                int key = findKey(5, map);
+                combinationValue = key*combination.getValue().getWorth();
+                break;
+            }
+            case FULL_HOUSE: {
+                int key = findKey(3, map);
+                combinationValue = key*combination.getValue().getWorth();
+                break;
+            }
+            case BIG_STRAIGHT: {
+                combinationValue = combination.getValue().getWorth();
+                break;
+            }
+            case SMALL_STRAIGHT: {
+                combinationValue = combination.getValue().getWorth();
+                break;
+            }
+            case QUADS: {
+                int key = findKey(4, map);
+                combinationValue = key*combination.getValue().getWorth();
+                break;
+            }
+            case THREE_OF_A_KIND: {
+                int key = findKey(3, map);
+                combinationValue = key*combination.getValue().getWorth();
+                break;
+            }
+            case TWO_PAIR: {
+                List<Integer> keys = findKeys(2, map);
+                if(keys.get(0) > keys.get(1)) {
+                    combinationValue = keys.get(0)*combination.getValue().getWorth();
+                } else {
+                    combinationValue = keys.get(1)*combination.getValue().getWorth();
+                }
+                break;
+            }
+            case ONE_PAIR: {
+                int key = findKey(2, map);
+                combinationValue = key*combination.getValue().getWorth();
+                break;
+            }
+            case NOTHING: {
+                combinationValue = combination.getValue().getWorth();
+                break;
+            }
+        }
+    }
+
+    public int getCombinationValue() {
+        return combinationValue;
+    }
+
+    public Combination getCombination() {
+        return combination.get();
+    }
+
 }

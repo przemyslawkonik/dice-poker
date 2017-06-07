@@ -37,20 +37,16 @@ public class DiceBox {
 
     public void rollAll() {
         for(Dice d : dices) {
-            //d.roll();
-            System.out.print(d.roll());
+            d.roll();
         }
-        System.out.println();
     }
 
     public void rollSelected() {
         for(Dice d : dices) {
             if(d.isSelected()) {
-                //d.roll();
-                System.out.print(d.roll());
+                d.roll();
             }
         }
-        System.out.println();
     }
 
     public void setStateAll(State state) {

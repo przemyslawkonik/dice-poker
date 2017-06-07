@@ -40,7 +40,8 @@ public class MainViewController implements Initializable {
     private Player human;
     private Player enemy;
     private Game game;
-    private boolean first = true;
+    private boolean firstTurn = true;
+    private boolean secondTurn = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -58,17 +59,40 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void handleAction() throws Exception{
-        if(first) {
+        if(firstTurn) {
             game.prepare();
             if(new Bet().set(human, potController.getPot(), "Set bet")) {
                 game.playFirstRound();
-                first = false;
+                firstTurn = false;
+                secondTurn = true;
             }
-        } else {
+        } else if(secondTurn){
             if(new Bet().set(human, potController.getPot(), "Increase bet")) {
                 game.playSecondRound();
-                first = true;
+                secondTurn = false;
             }
+        }
+        else /*if(!firstTurn && !secondTurn)*/{
+            //testy
+            if(playerArrangementController.getArrangement().getCombination().getWorth() > enemyArrangementController.getArrangement().getCombination().getWorth()) {
+                System.out.println("win");
+            } else if(playerArrangementController.getArrangement().getCombination().getWorth() < enemyArrangementController.getArrangement().getCombination().getWorth()) {
+                System.out.println("lost");
+            } else {
+                if(playerArrangementController.getArrangement().getCombinationValue() > enemyArrangementController.getArrangement().getCombinationValue()) {
+                    System.out.println("win");
+                } else if(playerArrangementController.getArrangement().getCombinationValue() < enemyArrangementController.getArrangement().getCombinationValue()) {
+                    System.out.println("lost");
+                } else {
+                    System.out.println("draw");
+                }
+            }
+            //koniec testow
+            System.out.println(playerArrangementController.getArrangement().getCombinationValue());
+            System.out.println(enemyArrangementController.getArrangement().getCombinationValue());
+
+            firstTurn = true;
+            secondTurn = false;
         }
     }
 }
