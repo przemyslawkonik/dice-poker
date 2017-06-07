@@ -2,9 +2,7 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ToggleButton;
 import model.dice.Dice;
-import model.dice.DiceBox;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -18,45 +16,48 @@ import java.util.ResourceBundle;
 public class DicesController implements Initializable {
 
     @FXML
-    private ToggleButton dice1;
+    private Dice dice1;
 
     @FXML
-    private ToggleButton dice2;
+    private Dice dice2;
 
     @FXML
-    private ToggleButton dice3;
+    private Dice dice3;
 
     @FXML
-    private ToggleButton dice4;
+    private Dice dice4;
 
     @FXML
-    private ToggleButton dice5;
+    private Dice dice5;
 
-    private List<ToggleButton> dices;
+    private List<Dice> dices;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dices = new LinkedList<>(Arrays.asList(
+        dices = createList();
+
+    }
+
+    private List<Dice> createList() {
+        return new LinkedList<>(Arrays.asList(
                 dice1, dice2, dice3, dice4, dice5
         ));
-
     }
 
-    public void bindDices(DiceBox diceBox) {
-        List<Dice> diceList = diceBox.getDices();
-        bindDicesValue(diceList);
-        bindDicesStyle(diceList);
+    public void roll(int dice) {
+        if(dice < 0 || dice > dices.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        dices.get(dice).roll();
     }
 
-    private void bindDicesValue(List<Dice> dices) {
-        for(int i=0; i<this.dices.size(); i++ ) {
-            this.dices.get(i).textProperty().bind(dices.get(i).valueProperty().asString());
+    public void rollAll() {
+        for(Dice d : dices) {
+            d.roll();
         }
     }
 
-    private void bindDicesStyle(List<Dice> dices) {
-        for(int i=0; i<this.dices.size(); i++ ) {
-            this.dices.get(i).idProperty().bind(dices.get(i).styleProperty().asString());
-        }
+    public List<Dice> getDices() {
+        return dices;
     }
 }

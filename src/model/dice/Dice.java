@@ -1,25 +1,43 @@
 package model.dice;
 
-import javafx.beans.property.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.ToggleButton;
+
+import java.util.Random;
 
 /**
- * Created by Przemysław Konik on 2017-06-06.
+ * Created by Przemysław Konik on 2017-06-07.
  */
-public abstract class Dice {
+public class Dice extends ToggleButton {
 
-    protected IntegerProperty value;
-    protected final int mesh;
-    protected BooleanProperty mark;
-    protected ObjectProperty<Style> style;
+    private IntegerProperty value;
+    private ObjectProperty<State> state;
+    private final int maxValue;
 
-    public Dice(int mesh) {
-        value = new SimpleIntegerProperty();
-        this.mesh = mesh;
-        mark = new SimpleBooleanProperty(false);
-        style = new SimpleObjectProperty<>(Style.UNMARKED);
+    public Dice() {
+        maxValue = 6;
+        initVariables();
+        initBindings();
     }
 
-    protected abstract void roll();
+    public int roll() {
+        value.set(new Random().nextInt(maxValue)+1);
+        return value.getValue();
+    }
+
+    private void initVariables() {
+        value = new SimpleIntegerProperty();
+        state = new SimpleObjectProperty<>(State.UNMARKED);
+
+    }
+
+    private void initBindings() {
+        this.textProperty().bind(this.value.asString());
+        this.idProperty().bind(this.state.asString());
+    }
 
     public int getValue() {
         return value.get();
@@ -33,31 +51,15 @@ public abstract class Dice {
         this.value.set(value);
     }
 
-    public int getMesh() {
-        return mesh;
+    public State getState() {
+        return state.get();
     }
 
-    public boolean isMark() {
-        return mark.get();
+    public ObjectProperty<State> stateProperty() {
+        return state;
     }
 
-    public BooleanProperty markProperty() {
-        return mark;
-    }
-
-    public void setMark(boolean mark) {
-        this.mark.set(mark);
-    }
-
-    public Style getStyle() {
-        return style.get();
-    }
-
-    public ObjectProperty<Style> styleProperty() {
-        return style;
-    }
-
-    public void setStyle(Style style) {
-        this.style.set(style);
+    public void setState(State state) {
+        this.state.set(state);
     }
 }

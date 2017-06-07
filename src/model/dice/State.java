@@ -3,19 +3,19 @@ package model.dice;
 /**
  * Created by Przemysław Konik on 2017-06-07.
  */
-public enum Style {
+public enum State {
 
     MARKED("marked"),
     UNMARKED("unmarked");
 
-    private String style;
+    private String state;
 
-    private Style(String style) {
-        this.style = style;
+    private State(String state) {
+        this.state = state;
     }
 
     @Override
     public String toString() {
-        return style;
+        return state;
     }
 }

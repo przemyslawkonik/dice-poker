@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
@@ -23,8 +22,8 @@
    <left>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <fx:include source="combination.fxml" fx:id="enemyCombination"/>
-            <fx:include source="combination.fxml" fx:id="playerCombination"/>
+            <fx:include source="arrangement.fxml" fx:id="enemyArrangement"/>
+            <fx:include source="arrangement.fxml" fx:id="playerArrangement"/>
          </children>
       </VBox>
    </left>

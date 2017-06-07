@@ -3,9 +3,6 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import model.combination.Arrangement;
-import model.combination.DicePokerArrangement;
-import model.dice.DiceBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,43 +19,27 @@ public class MainViewController implements Initializable {
     private DicesController enemyDicesController;
 
     @FXML
-    private CombinationController enemyCombinationController;
+    private ArrangementController enemyArrangementController;
 
     @FXML
     private DicesController playerDicesController;
 
     @FXML
-    private CombinationController playerCombinationController;
-
-    private Arrangement enemyDicePokerCombination;
-    private DiceBox enemyDiceBox;
-
-    private Arrangement playerDicePokerCombination;
-    private DiceBox playerDiceBox;
+    private ArrangementController playerArrangementController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playerDiceBox = new DiceBox(5);
-        playerDicePokerCombination = new DicePokerArrangement(playerDiceBox);
-
-        playerDicesController.bindDices(playerDiceBox);
-        playerCombinationController.bindCombination(playerDicePokerCombination);
-
-
-        enemyDiceBox = new DiceBox(5);
-        enemyDicePokerCombination = new DicePokerArrangement(enemyDiceBox);
-
-        enemyDicesController.bindDices(enemyDiceBox);
-        enemyCombinationController.bindCombination(enemyDicePokerCombination);
+        playerArrangementController.getArrangement().setDices(playerDicesController.getDices());
+        enemyArrangementController.getArrangement().setDices(enemyDicesController.getDices());
 
     }
 
     @FXML
     public void handleAction() {
-        playerDiceBox.rollAll();
-        enemyDiceBox.rollAll();
+        playerDicesController.rollAll();
+        enemyDicesController.rollAll();
 
-        playerDicePokerCombination.calculate();
-        enemyDicePokerCombination.calculate();
+        playerArrangementController.calculate();
+        enemyArrangementController.calculate();
     }
 }
