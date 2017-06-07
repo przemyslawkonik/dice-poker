@@ -2,19 +2,18 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BetController">
     <children>
-        <Label fx:id="message" text="Label" />
+        <Label fx:id="message" text="Text" />
         <HBox alignment="CENTER">
             <children>
                 <Slider fx:id="slider" />
-            <Label fx:id="betValue" text="0" />
+                <Label fx:id="value" text="0" />
             </children>
         </HBox>
-        <Button fx:id="submit" mnemonicParsing="false" onAction="#handleSubmit" text="Submit" />
+        <Button onAction="#handleSubmit" text="Submit" />
     </children>
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

@@ -2,46 +2,35 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import model.player.Player;
 
 /**
  * Created by Przemysław Konik on 2017-06-07.
  */
-public class BetController implements Initializable {
+public class BetController {
 
     @FXML
     private Slider slider;
 
     @FXML
-    private Button submit;
-
-    @FXML
     private Label message;
 
     @FXML
-    private Label betValue;
+    private Label value;
 
-    private boolean isBet;
+    private boolean bet;
 
     public BetController() {
-        isBet = false;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+        bet = false;
     }
 
     @FXML
     public void handleSubmit(ActionEvent event) {
-        isBet = true;
+        bet = true;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
@@ -50,15 +39,21 @@ public class BetController implements Initializable {
         this.message.setText(message);
     }
 
-    public boolean getResult() {
-        return isBet;
+    public void setSlider(Player player) {
+        slider.setMax(player.getMoney().getValue());
+        slider.setValue(0);
+
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            slider.setValue(newValue.intValue());
+            value.setText(""+newValue.intValue());
+        });
     }
 
-    public Slider getSlider() {
-        return slider;
+    public boolean isBet() {
+        return bet;
     }
 
-    public Label getBetValue() {
-        return betValue;
+    public int getValue() {
+        return Integer.parseInt(value.getText());
     }
 }

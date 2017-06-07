@@ -22,27 +22,16 @@ public class Bet {
         stage.initModality(Modality.APPLICATION_MODAL);
 
         BetController betController = loader.getController();
-
         betController.setMessage(message);
-
-        betController.getSlider().setMax(player.getMoney().getValue());
-        betController.getSlider().setValue(0);
-
-        betController.getSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
-            betController.getSlider().setValue(newValue.intValue());
-            betController.getBetValue().setText(""+newValue.intValue());
-        });
+        betController.setSlider(player);
 
         stage.showAndWait();
 
-
-        if(betController.getResult()) {
-            int tmp = Integer.parseInt(betController.getBetValue().getText());
-            player.getMoney().decrease(tmp);
-            pot.increase(tmp);
+        if(betController.isBet()) {
+            player.getMoney().decrease(betController.getValue());
+            pot.increase(betController.getValue());
             return true;
         }
-
         return false;
     }
 }
