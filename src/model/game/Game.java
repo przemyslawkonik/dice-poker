@@ -1,7 +1,11 @@
 package model.game;
 
 import javafx.application.Platform;
+import model.dice.Dice;
+import model.dice.State;
 import model.player.Player;
+
+import java.util.Random;
 
 /**
  * Created by Przemysław Konik on 2017-06-07.
@@ -46,16 +50,21 @@ public class Game {
             human.getArrangement().setVisible(false);
             human.getDiceBox().setVisibleSelected(false);
             human.getDiceBox().setDisableAll(true);
+            human.getDiceBox().setStateAll(State.UNMARKED);
             handleScreen(2000);
             secondTurn(human);
 
-            human.getDiceBox().setSelectedAll(false);
+            //human.getDiceBox().setSelectedAll(false);
 
+            enemyAI();
             enemy.getArrangement().setVisible(false);
             enemy.getDiceBox().setVisibleSelected(false);
+            enemy.getDiceBox().setStateAll(State.UNMARKED);
             handleScreen(2000);
             secondTurn(enemy);
 
+            //enemy.getDiceBox().setSelectedAll(false);
+            //human.getDiceBox().setSelectedAll(false);
             //human.getDiceBox().setDisableAll(false);
 
         }).start();
@@ -77,6 +86,8 @@ public class Game {
             player.getArrangement().calculate();
             player.getDiceBox().setVisibleAll(true);
             player.getArrangement().setVisible(true);
+
+            player.getDiceBox().setSelectedAll(false);
         });
     }
 
@@ -86,5 +97,15 @@ public class Game {
         } catch (InterruptedException e) {}
     }
 
+    private void enemyAI() {
+        for(Dice d : enemy.getDiceBox().getDices()) {
+            int x = new Random().nextInt(2);
+            if(x==0) {
+                d.setSelected(true);
+            } else {
+                d.setSelected(false);
+            }
+            }
+    }
 
 }

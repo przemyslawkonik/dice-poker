@@ -47,6 +47,7 @@ public class MainViewController implements Initializable {
     @FXML
     public void handleAction() {
         if(first) {
+            game.prepare();
             game.playFirstRound();
             first = false;
         } else {

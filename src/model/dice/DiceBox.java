@@ -26,24 +26,36 @@ public class DiceBox {
         return dices;
     }
 
+    /*
     public void roll(int dice) {
         if(dice < 0 || dice > dices.size()) {
             throw new IndexOutOfBoundsException();
         }
         dices.get(dice).roll();
     }
+    */
 
     public void rollAll() {
         for(Dice d : dices) {
-            d.roll();
+            //d.roll();
+            System.out.print(d.roll());
         }
+        System.out.println();
     }
 
     public void rollSelected() {
         for(Dice d : dices) {
             if(d.isSelected()) {
-                d.roll();
+                //d.roll();
+                System.out.print(d.roll());
             }
+        }
+        System.out.println();
+    }
+
+    public void setStateAll(State state) {
+        for(Dice d : dices) {
+            d.setState(state);
         }
     }
 
@@ -70,12 +82,6 @@ public class DiceBox {
     public void setDisableAll(boolean disability) {
         for(Dice d : dices) {
             d.setDisable(disability);
-        }
-    }
-
-    public void setOpacityAll(double opacity) {
-        for(Dice d : dices) {
-            d.setOpacity(opacity);
         }
     }
 
