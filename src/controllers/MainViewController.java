@@ -29,17 +29,32 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playerArrangementController.getArrangement().setDices(playerDicesController.getDices());
-        enemyArrangementController.getArrangement().setDices(enemyDicesController.getDices());
+        playerArrangementController.getArrangement().setDices(playerDicesController.getDiceBox().getDices());
+        enemyArrangementController.getArrangement().setDices(enemyDicesController.getDiceBox().getDices());
+
+        playerDicesController.getDiceBox().setVisibleAll(false);
+
+        enemyDicesController.getDiceBox().setDisableAll(true);
+        enemyDicesController.getDiceBox().setOpacityAll(1);
+        enemyDicesController.getDiceBox().setVisibleAll(false);
+
+        playerArrangementController.getArrangement().setVisible(false);
+        enemyArrangementController.getArrangement().setVisible(false);
 
     }
 
     @FXML
     public void handleAction() {
-        playerDicesController.rollAll();
-        enemyDicesController.rollAll();
+        playerDicesController.getDiceBox().rollSelected();
+        enemyDicesController.getDiceBox().rollAll();
 
-        playerArrangementController.calculate();
-        enemyArrangementController.calculate();
+        playerArrangementController.getArrangement().calculate();
+        enemyArrangementController.getArrangement().calculate();
+
+        playerDicesController.getDiceBox().setVisibleAll(true);
+        enemyDicesController.getDiceBox().setVisibleAll(true);
+
+        playerArrangementController.getArrangement().setVisible(true);
+        enemyArrangementController.getArrangement().setVisible(true);
     }
 }

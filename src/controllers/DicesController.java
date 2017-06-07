@@ -3,6 +3,7 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import model.dice.Dice;
+import model.dice.DiceBox;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -30,11 +31,11 @@ public class DicesController implements Initializable {
     @FXML
     private Dice dice5;
 
-    private List<Dice> dices;
+    private DiceBox diceBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dices = createList();
+        diceBox = new DiceBox(createList());
 
     }
 
@@ -44,20 +45,8 @@ public class DicesController implements Initializable {
         ));
     }
 
-    public void roll(int dice) {
-        if(dice < 0 || dice > dices.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        dices.get(dice).roll();
+    public DiceBox getDiceBox() {
+        return diceBox;
     }
 
-    public void rollAll() {
-        for(Dice d : dices) {
-            d.roll();
-        }
-    }
-
-    public List<Dice> getDices() {
-        return dices;
-    }
 }

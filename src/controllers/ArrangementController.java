@@ -20,10 +20,6 @@ public class ArrangementController implements Initializable {
 
     }
 
-    public void calculate() {
-        arrangement.calculate();
-    }
-
     public Arrangement getArrangement() {
         return arrangement;
     }
