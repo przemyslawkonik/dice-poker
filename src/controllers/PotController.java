@@ -14,20 +14,13 @@ import java.util.ResourceBundle;
 public class PotController implements Initializable{
 
     @FXML
-    private Label potLabel;
-
-    private Pot pot;
-
-    public PotController() {
-        pot = new Pot();
-    }
+    private Label pot;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        potLabel.textProperty().bind(pot.valueProperty().asString());
     }
 
-    public Pot getPot() {
-        return pot;
+    public void bind(Pot pot) {
+        this.pot.textProperty().bind(pot.valueProperty().asString());
     }
 }

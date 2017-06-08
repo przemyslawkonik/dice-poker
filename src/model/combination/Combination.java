@@ -5,13 +5,13 @@ package model.combination;
  */
 public enum Combination {
 
-    STRAIGHT_FLUSH("Straight flush", 335881),
-    QUADS("Quads", 559801),
-    FULL_HOUSE("Full house", 9331),
-    BIG_STRAIGHT("Big straight", 1555),
-    SMALL_STRAIGHT("Small straight", 259),
-    THREE_OF_A_KIND("Three of a kind", 43),
-    TWO_PAIR("Two pairs", 7),
+    STRAIGHT_FLUSH("Straight flush", 8),
+    QUADS("Quads", 7),
+    FULL_HOUSE("Full house", 6),
+    BIG_STRAIGHT("Big straight", 5),
+    SMALL_STRAIGHT("Small straight", 4),
+    THREE_OF_A_KIND("Three of a kind", 3),
+    TWO_PAIR("Two pairs", 2),
     ONE_PAIR("One pair", 1),
     NOTHING("Nothing", 0);
 

@@ -15,17 +15,17 @@ public class Arrangement {
 
     private ObjectProperty<Combination> combination;
     private DiceBox diceBox;
-    private int combinationWorth;
+    private int combinationValue;
 
     public Arrangement() {
         combination = new SimpleObjectProperty<>(Combination.NOTHING);
-        combinationWorth = combination.getValue().getWorth();
+        combinationValue = combination.getValue().getWorth();
         diceBox = new DiceBox();
     }
 
     public Arrangement(DiceBox diceBox) {
         combination = new SimpleObjectProperty<>(Combination.NOTHING);
-        combinationWorth = combination.get().getWorth();
+        combinationValue = combination.get().getWorth();
         this.diceBox = diceBox;
     }
 
@@ -45,12 +45,12 @@ public class Arrangement {
         return diceBox;
     }
 
-    public int getCombinationWorth() {
-        return combinationWorth;
+    public int getCombinationValue() {
+        return combinationValue;
     }
 
-    public void setCombinationWorth(int combinationWorth) {
-        this.combinationWorth = combinationWorth;
+    public void setCombinationValue(int combinationValue) {
+        this.combinationValue = combinationValue;
     }
 
     public ObjectProperty<Combination> combinationProperty() {
@@ -221,48 +221,45 @@ public class Arrangement {
         switch (combination.getValue()) {
             case STRAIGHT_FLUSH: {
                 int key = findKey(5, map);
-                combinationWorth = key*combination.getValue().getWorth();
+                combinationValue = key*combination.getValue().getWorth();
                 break;
             }
             case FULL_HOUSE: {
                 int key = findKey(3, map);
-                combinationWorth = key*combination.getValue().getWorth();
+                combinationValue = key*combination.getValue().getWorth();
                 break;
             }
             case BIG_STRAIGHT: {
-                combinationWorth = combination.getValue().getWorth();
+                combinationValue = combination.getValue().getWorth();
                 break;
             }
             case SMALL_STRAIGHT: {
-                combinationWorth = combination.getValue().getWorth();
+                combinationValue = combination.getValue().getWorth();
                 break;
             }
             case QUADS: {
                 int key = findKey(4, map);
-                combinationWorth = key*combination.getValue().getWorth();
+                combinationValue = key*combination.getValue().getWorth();
                 break;
             }
             case THREE_OF_A_KIND: {
-                int key = findKey(3, map);
-                combinationWorth = key*combination.getValue().getWorth();
+                int key1 = findKey(3, map);
+                int key2 = findKey(2, map);
+                combinationValue = key1*key2*combination.getValue().getWorth();
                 break;
             }
             case TWO_PAIR: {
                 List<Integer> keys = findKeys(2, map);
-                if(keys.get(0) > keys.get(1)) {
-                    combinationWorth = keys.get(0)*combination.getValue().getWorth();
-                } else {
-                    combinationWorth = keys.get(1)*combination.getValue().getWorth();
-                }
+                combinationValue = keys.get(0)*keys.get(1)*combination.getValue().getWorth();
                 break;
             }
             case ONE_PAIR: {
                 int key = findKey(2, map);
-                combinationWorth = key*combination.getValue().getWorth();
+                combinationValue = key*combination.getValue().getWorth();
                 break;
             }
             case NOTHING: {
-                combinationWorth = combination.getValue().getWorth();
+                combinationValue = combination.getValue().getWorth();
                 break;
             }
         }

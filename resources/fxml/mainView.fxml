@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -16,16 +17,16 @@
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" text="Roll" />
-             <fx:include source="money.fxml" fx:id="humanMoney"/>
+             <fx:include fx:id="humanMoney" source="money.fxml" />
          </children>
       </VBox>
    </right>
    <left>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <fx:include source="combination.fxml" fx:id="computerCombination"/>
-             <fx:include source="pot.fxml" fx:id="pot"/>
-            <fx:include source="combination.fxml" fx:id="humanCombination"/>
+            <fx:include fx:id="computerCombination" source="combination.fxml" />
+             <fx:include fx:id="pot" source="pot.fxml" />
+            <fx:include fx:id="humanCombination" source="combination.fxml" />
          </children>
       </VBox>
    </left>

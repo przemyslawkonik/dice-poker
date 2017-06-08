@@ -32,16 +32,10 @@ public class DicesController implements Initializable {
     private ToggleButton dice5;
 
     private List<ToggleButton> dices;
-    private DiceBox diceBox;
-
-    public DicesController() {
-        diceBox = new DiceBox(5);
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dices = createList();
-        initBindings();
     }
 
     private List<ToggleButton> createList() {
@@ -50,26 +44,10 @@ public class DicesController implements Initializable {
         ));
     }
 
-    private void initBindings() {
+    public void bind(DiceBox diceBox) {
         for(int i=0; i<dices.size(); i++) {
             dices.get(i).textProperty().bind(diceBox.getDice(i).valueProperty().asString());
             dices.get(i).idProperty().bind(diceBox.getDice(i).stateProperty().asString());
-        }
-    }
-
-    public DiceBox getDiceBox() {
-        return diceBox;
-    }
-
-    public void setDiceBox(DiceBox diceBox) {
-        this.diceBox = diceBox;
-    }
-
-    public void rollSelected() {
-        for(int i=0; i<dices.size(); i++) {
-            if(dices.get(i).isSelected()) {
-                diceBox.getDice(i).roll();
-            }
         }
     }
 
@@ -97,53 +75,5 @@ public class DicesController implements Initializable {
         for(ToggleButton d : dices) {
             d.setDisable(disability);
         }
-    }
-
-    public ToggleButton getDice1() {
-        return dice1;
-    }
-
-    public void setDice1(ToggleButton dice1) {
-        this.dice1 = dice1;
-    }
-
-    public ToggleButton getDice2() {
-        return dice2;
-    }
-
-    public void setDice2(ToggleButton dice2) {
-        this.dice2 = dice2;
-    }
-
-    public ToggleButton getDice3() {
-        return dice3;
-    }
-
-    public void setDice3(ToggleButton dice3) {
-        this.dice3 = dice3;
-    }
-
-    public ToggleButton getDice4() {
-        return dice4;
-    }
-
-    public void setDice4(ToggleButton dice4) {
-        this.dice4 = dice4;
-    }
-
-    public ToggleButton getDice5() {
-        return dice5;
-    }
-
-    public void setDice5(ToggleButton dice5) {
-        this.dice5 = dice5;
-    }
-
-    public List<ToggleButton> getDices() {
-        return dices;
-    }
-
-    public void setDices(List<ToggleButton> dices) {
-        this.dices = dices;
     }
 }

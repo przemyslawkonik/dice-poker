@@ -14,24 +14,13 @@ import java.util.ResourceBundle;
 public class MoneyController implements Initializable {
 
     @FXML
-    private Label moneyLabel;
-
-    private Money money;
-
-    public MoneyController() {
-        money = new Money(1000);
-    }
+    private Label money;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        moneyLabel.textProperty().bind(money.valueProperty().asString());
     }
 
-    public Money getMoney() {
-        return money;
-    }
-
-    public void setMoney(Money money) {
-        this.money = money;
+    public void bind(Money money) {
+        this.money.textProperty().bind(money.valueProperty().asString());
     }
 }

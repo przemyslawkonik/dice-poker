@@ -1,23 +1,36 @@
 package model.game;
 
-import controllers.CombinationController;
-import controllers.DicesController;
-import controllers.MoneyController;
-import javafx.application.Platform;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
-import model.dice.State;
 import model.player.Player;
-import tools.AlertBox;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
+import model.pot.Pot;
 
 /**
  * Created by Przemysław Konik on 2017-06-07.
  */
 public class Game {
+
+    /*
+    private Pot pot;
+    private Player human;
+    private Player computer;
+    */
+
+    public Game(/*Player human, Player computer, Pot pot*/) {
+        /*
+        this.human = human;
+        this.computer = computer;
+        this.pot = pot;
+        */
+    }
+
+    public void firstTurn(Player player) {
+        player.getDiceBox().rollAll();
+        player.getArrangement().calculate();
+    }
+}
+
+/*
+
+    private Pot pot;
 
     private Player human;
     private Player computer;
@@ -46,7 +59,15 @@ public class Game {
         this.computerCombinationController = combinationController;
     }
 
-    public void prepare() {
+    public Pot getPot() {
+        return pot;
+    }
+
+    public void setPot(Pot pot) {
+        this.pot = pot;
+    }
+
+    public void prepareView() {
         humanDicesController.setVisibleAll(false);
         humanDicesController.setSelectedAll(false);
         humanCombinationController.getCombination().setVisible(false);
@@ -90,9 +111,14 @@ public class Game {
             secondTurn(computer, computerDicesController, computerCombinationController);
 
             //displayResult();
+
             Platform.runLater( () -> {
-                displayResult();
-                prepare();
+                Result result = getResult();
+                displayResult(result);
+                System.out.println(human.getMoney().getValue());
+                moneyResult(result);
+                pot.setValue(0);
+                System.out.println(human.getMoney().getValue());
             });
 
             //enemy.getDiceBox().setSelectedAll(false);
@@ -140,17 +166,64 @@ public class Game {
             }
     }
 
-    private void displayResult() {
+    private void displayResult(Result result) {
         AlertBox alertBox = new AlertBox();
         try {
-            if (human.getArrangement().getCombinationWorth() > computer.getArrangement().getCombinationWorth()) {
-                alertBox.displayInfo("You won!");
-            } else if (human.getArrangement().getCombinationWorth() < computer.getArrangement().getCombinationWorth()) {
-                alertBox.displayInfo("You lost!");
-            } else {
-                alertBox.displayInfo("Draw!");
+            switch (result) {
+                case WIN: {
+                    alertBox.displayInfo("You won!");
+                    break;
+                }
+                case LOST: {
+                    alertBox.displayInfo("You lost!");
+                    break;
+                }
+                case DRAW: {
+                    alertBox.displayInfo("Draw!");
+                    break;
+                }
             }
         }catch (IOException e) {}
     }
 
-}
+    private Result getResult() {
+        if (human.getArrangement().getCombination().getWorth() > computer.getArrangement().getCombination().getWorth()) {
+            return Result.WIN;
+        } else if (human.getArrangement().getCombination().getWorth() < computer.getArrangement().getCombination().getWorth()) {
+            return Result.LOST;
+        } else {
+            if(human.getArrangement().getCombinationValue() > computer.getArrangement().getCombinationValue()) {
+                return Result.WIN;
+            } else if(human.getArrangement().getCombinationValue() < computer.getArrangement().getCombinationValue()) {
+                return Result.LOST;
+            } else {
+                return Result.DRAW;
+            }
+        }
+    }
+
+    private void moneyResult(Result result) {
+        switch (result) {
+            case WIN: {
+                human.getMoney().increase(pot.getValue());
+                break;
+            }
+            case LOST: {
+                if(human.getMoney().getValue() <= 0) {
+                    boolean choice = false;
+                    try {
+                        choice = new AlertBox().displayChoice("You have lost all your money. Do you want to start a new game?");
+                    }catch (IOException e) {}
+                    if(choice) {
+                        human.getMoney().setValue(1000);
+                    }
+                }
+                break;
+            }
+            case DRAW: {
+                human.getMoney().increase(pot.getValue()/2);
+            }
+        }
+    }
+
+ */

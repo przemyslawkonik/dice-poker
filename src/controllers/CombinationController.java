@@ -13,39 +13,18 @@ import java.util.ResourceBundle;
  */
 public class CombinationController implements Initializable {
 
-
     @FXML
     private Label combination;
 
-    private Arrangement arrangement;
-
-    public CombinationController() {
-        arrangement = new Arrangement();
-    }
-
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initBindings();
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
-    private void initBindings() {
+    public void bind(Arrangement arrangement) {
         combination.textProperty().bind(arrangement.combinationProperty().asString());
     }
 
-    public Arrangement getArrangement() {
-        return arrangement;
-    }
-
-    public void setArrangement(Arrangement arrangement) {
-        this.arrangement = arrangement;
-    }
-
-    public Label getCombination() {
-        return combination;
-    }
-
-    public void setCombination(Label combination) {
-        this.combination = combination;
+    public void setVisible(boolean visibility) {
+        combination.setVisible(visibility);
     }
 
 }

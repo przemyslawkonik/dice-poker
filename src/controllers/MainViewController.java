@@ -4,9 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import model.bet.Bet;
+import model.combination.Arrangement;
+import model.dice.DiceBox;
 import model.game.Game;
 import model.money.Money;
 import model.player.Player;
+import model.pot.Pot;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,27 +42,35 @@ public class MainViewController implements Initializable {
 
     private Player human;
     private Player computer;
+    private Pot pot;
     private Game game;
     private boolean firstTurn = true;
     private boolean secondTurn = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        human = new Player(humanDicesController.getDiceBox(), humanCombinationController.getArrangement(), humanMoneyController.getMoney());
-        computer = new Player(computerDicesController.getDiceBox(), computerCombinationController.getArrangement(), new Money(1000));
+        human = new Player(new DiceBox(5), new Arrangement(), new Money(1000));
+        humanDicesController.bind(human.getDiceBox());
+        humanCombinationController.bind(human.getArrangement());
+        humanMoneyController.bind(human.getMoney());
 
-        humanCombinationController.getArrangement().setDiceBox(human.getDiceBox());
-        computerCombinationController.getArrangement().setDiceBox(computer.getDiceBox());
+        computer = new Player(new DiceBox(5), new Arrangement(), new Money(1000));
+        computerDicesController.bind(computer.getDiceBox());
+        computerCombinationController.bind(computer.getArrangement());
 
-        game = new Game(human, computer);
-        game.setHumanController(humanDicesController, humanCombinationController, humanMoneyController);
-        game.setComputerControllers(computerDicesController, computerCombinationController);
-        game.prepare();
+        pot = new Pot();
+        potController.bind(pot);
+
+        game = new Game(/*human, computer, pot*/);
+
+        prepareGameView();
     }
 
     @FXML
     public void handleAction() throws Exception{
+        /*
         if(firstTurn) {
+            game.prepareView();
             if(new Bet().set(human, potController.getPot(), "Set bet")) {
                 game.playFirstRound();
                 firstTurn = false;
@@ -72,5 +83,14 @@ public class MainViewController implements Initializable {
                 firstTurn = true;
             }
         }
+        */
+    }
+
+    private void prepareGameView() {
+        humanCombinationController.setVisible(false);
+        humanDicesController.setVisibleAll(false);
+
+        computerCombinationController.setVisible(false);
+        computerDicesController.setVisibleAll(false);
     }
 }

@@ -8,6 +8,6 @@
 <HBox fx:controller="controllers.PotController" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Pot:" />
-      <Label fx:id="potLabel" text="0" />
+      <Label fx:id="pot" text="0" />
    </children>
 </HBox>
