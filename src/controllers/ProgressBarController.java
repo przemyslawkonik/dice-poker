@@ -13,7 +13,7 @@ public class ProgressBarController {
     private ProgressBar progress;
 
     private final double step = 0.1;
-    private final int gap = 250;
+    private final int gap = 200;
 
     public void setVisible(boolean visibility) {
         progress.setVisible(visibility);
