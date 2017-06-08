@@ -82,6 +82,8 @@ public class MainViewController implements Initializable {
             prepareView();
             if (new Bet().set(human, pot, "Set bet")) {
                 new Thread(() -> {
+                    rollButton.setDisable(true);
+
                     progressBarController.run(0.1, 150);
 
                     Platform.runLater(() -> {
@@ -96,12 +98,14 @@ public class MainViewController implements Initializable {
 
                     Platform.runLater(() -> {
                         game.firstTurn(computer);
+                        rollButton.setText("Reroll");
                     });
 
                     computerDicesController.setVisibleAll(true);
                     computerCombinationController.setVisible(true);
 
                     humanDicesController.setDisableAll(false);
+                    rollButton.setDisable(false);
                 }).start();
 
                 firstTurn = false;
@@ -109,6 +113,8 @@ public class MainViewController implements Initializable {
         } else {
             if(new Bet().set(human, pot, "Increase bet")) {
                 new Thread( () -> {
+                    rollButton.setDisable(true);
+
                     humanCombinationController.setVisible(false);
                     humanDicesController.setVisibleSelected(false);
                     humanDicesController.setDisableAll(true);
@@ -138,6 +144,8 @@ public class MainViewController implements Initializable {
                     computerCombinationController.setVisible(true);
                     computerDicesController.setSelectedAll(false);
 
+                    rollButton.setDisable(false);
+
                     //rezultat
                     Result result = game.calculateResult(human, computer);
                     Platform.runLater(() -> {
@@ -163,6 +171,8 @@ public class MainViewController implements Initializable {
         computerDicesController.setDisableAll(true);
 
         progressBarController.setVisible(false);
+
+        rollButton.setText("Roll");
     }
 
     private void checkIfEnd() {

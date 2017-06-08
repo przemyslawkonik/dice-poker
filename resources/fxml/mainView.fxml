@@ -17,7 +17,7 @@
    <right>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" text="Roll" />
+            <Button fx:id="rollButton" opacity="1" mnemonicParsing="false" onAction="#handleAction" text="Roll" />
              <fx:include fx:id="humanMoney" source="money.fxml" />
          </children>
       </VBox>
