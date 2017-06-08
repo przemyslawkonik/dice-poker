@@ -1,5 +1,7 @@
 package model.game;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ToggleButton;
 import model.player.Player;
 import model.pot.Pot;
@@ -13,6 +15,8 @@ import java.util.List;
  */
 public class Game {
 
+    private ObjectProperty<Result> result;
+
     /*
     private Pot pot;
     private Player human;
@@ -20,6 +24,8 @@ public class Game {
     */
 
     public Game(/*Player human, Player computer, Pot pot*/) {
+
+        result = new SimpleObjectProperty<>(Result.NO_RESULT);
         /*
         this.human = human;
         this.computer = computer;
@@ -43,18 +49,19 @@ public class Game {
 
     public Result calculateResult(Player human, Player computer) {
         if (human.getArrangement().getCombination().getWorth() > computer.getArrangement().getCombination().getWorth()) {
-            return Result.WIN;
+            result.set(Result.WIN);
         } else if (human.getArrangement().getCombination().getWorth() < computer.getArrangement().getCombination().getWorth()) {
-            return Result.LOST;
+            result.set(Result.LOST);
         } else {
             if(human.getArrangement().getCombinationValue() > computer.getArrangement().getCombinationValue()) {
-                return Result.WIN;
+                result.set(Result.WIN);
             } else if(human.getArrangement().getCombinationValue() < computer.getArrangement().getCombinationValue()) {
-                return Result.LOST;
+                result.set(Result.LOST);
             } else {
-                return Result.DRAW;
+                result.set(Result.DRAW);
             }
         }
+        return result.get();
     }
 
     public void displayResult(Result result) {
@@ -90,6 +97,18 @@ public class Game {
                 player.getMoney().increase(pot.getValue()/2);
             }
         }
+    }
+
+    public Result getResult() {
+        return result.get();
+    }
+
+    public ObjectProperty<Result> resultProperty() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result.set(result);
     }
 }
 

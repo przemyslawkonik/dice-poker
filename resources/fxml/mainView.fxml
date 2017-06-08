@@ -14,7 +14,12 @@
                  <children>
                      <fx:include fx:id="computerCombination" source="combination.fxml" />
                      <fx:include fx:id="computerDices" source="dices.fxml" />
-                     <fx:include fx:id="progressBar" source="progressBar.fxml" />
+                     <StackPane>
+                         <children>
+                             <fx:include fx:id="progressBar" source="progressBar.fxml"/>
+                             <fx:include source="result.fxml" fx:id="result"/>
+                         </children>
+                     </StackPane>
                      <fx:include fx:id="humanDices" source="dices.fxml" />
                      <fx:include fx:id="humanCombination" source="combination.fxml" />
                  </children>

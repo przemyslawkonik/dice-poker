@@ -53,6 +53,9 @@ public class MainViewController implements Initializable {
     @FXML
     private StatisticsController statisticsController;
 
+    @FXML
+    private ResultController resultController;
+
     private Player human;
     private Player computer;
     private Pot pot;
@@ -79,6 +82,7 @@ public class MainViewController implements Initializable {
         statisticsController.bind(statistics);
 
         game = new Game(/*human, computer, pot*/);
+        resultController.bind(game);
 
         prepareView();
     }
@@ -166,10 +170,11 @@ public class MainViewController implements Initializable {
                     //rezultat
                     Platform.runLater(() -> {
                         Result result = game.calculateResult(human, computer);
-                        game.displayResult(result);
+                        //game.displayResult(result);
                         game.moneyResult(human, pot, result);
                         pot.setValue(0);
                         statistics.add(result);
+                        resultController.setVisible(true);
                         checkIfEnd();
                     });
 
@@ -189,6 +194,8 @@ public class MainViewController implements Initializable {
         computerDicesController.setDisableAll(true);
 
         progressBarController.setVisible(false);
+
+        resultController.setVisible(false);
 
         isBet = false;
     }
