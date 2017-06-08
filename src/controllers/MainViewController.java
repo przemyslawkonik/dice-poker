@@ -54,13 +54,12 @@ public class MainViewController implements Initializable {
         game = new Game(human, computer);
         game.setHumanController(humanDicesController, humanCombinationController, humanMoneyController);
         game.setComputerControllers(computerDicesController, computerCombinationController);
-        prepareGameView();
+        game.prepare();
     }
 
     @FXML
     public void handleAction() throws Exception{
         if(firstTurn) {
-            prepareGameView();
             if(new Bet().set(human, potController.getPot(), "Set bet")) {
                 game.playFirstRound();
                 firstTurn = false;
@@ -73,16 +72,5 @@ public class MainViewController implements Initializable {
                 firstTurn = true;
             }
         }
-    }
-
-    private void prepareGameView() {
-        humanDicesController.setVisibleAll(false);
-        humanDicesController.setSelectedAll(false);
-        humanCombinationController.getCombination().setVisible(false);
-
-        computerDicesController.setVisibleAll(false);
-        computerDicesController.setSelectedAll(false);
-        computerDicesController.setDisableAll(true);
-        computerCombinationController.getCombination().setVisible(false);
     }
 }

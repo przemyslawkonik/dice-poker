@@ -8,7 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import model.dice.State;
 import model.player.Player;
+import tools.AlertBox;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -44,6 +46,17 @@ public class Game {
         this.computerCombinationController = combinationController;
     }
 
+    public void prepare() {
+        humanDicesController.setVisibleAll(false);
+        humanDicesController.setSelectedAll(false);
+        humanCombinationController.getCombination().setVisible(false);
+
+        computerDicesController.setVisibleAll(false);
+        computerDicesController.setSelectedAll(false);
+        computerDicesController.setDisableAll(true);
+        computerCombinationController.getCombination().setVisible(false);
+    }
+
     public void playFirstRound() {
         new Thread( () -> {
             handleScreen(2000);
@@ -75,6 +88,12 @@ public class Game {
             computer.getDiceBox().setStateAll(State.UNMARKED);
             handleScreen(2000);
             secondTurn(computer, computerDicesController, computerCombinationController);
+
+            //displayResult();
+            Platform.runLater( () -> {
+                displayResult();
+                prepare();
+            });
 
             //enemy.getDiceBox().setSelectedAll(false);
             //human.getDiceBox().setSelectedAll(false);
@@ -119,6 +138,19 @@ public class Game {
                 d.setSelected(false);
             }
             }
+    }
+
+    private void displayResult() {
+        AlertBox alertBox = new AlertBox();
+        try {
+            if (human.getArrangement().getCombinationWorth() > computer.getArrangement().getCombinationWorth()) {
+                alertBox.displayInfo("You won!");
+            } else if (human.getArrangement().getCombinationWorth() < computer.getArrangement().getCombinationWorth()) {
+                alertBox.displayInfo("You lost!");
+            } else {
+                alertBox.displayInfo("Draw!");
+            }
+        }catch (IOException e) {}
     }
 
 }
