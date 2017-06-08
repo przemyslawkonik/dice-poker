@@ -14,39 +14,35 @@ public class DiceBox {
         this.dices = dices;
     }
 
+    public DiceBox(int dices) {
+        this.dices = createDiceList(dices);
+    }
+
     public DiceBox() {
         dices = new LinkedList<>();
     }
 
-    public void setDices(List<Dice> dices) {
-        this.dices = dices;
+    private List<Dice> createDiceList(int dices) {
+        List<Dice> list = new LinkedList<>();
+        for(int i=0; i<dices; i++) {
+            list.add(new Dice());
+        }
+        return list;
     }
 
-    public List<Dice> getDices() {
-        return dices;
+    public int[] rollAll() {
+        int[] values = new int[dices.size()];
+        for(int i=0; i<dices.size(); i++) {
+            values[i] = dices.get(i).roll();
+        }
+        return values;
     }
 
-    /*
-    public void roll(int dice) {
-        if(dice < 0 || dice > dices.size()) {
+    public int roll(int dice) {
+        if(dice <0 || dice > dices.size()) {
             throw new IndexOutOfBoundsException();
         }
-        dices.get(dice).roll();
-    }
-    */
-
-    public void rollAll() {
-        for(Dice d : dices) {
-            d.roll();
-        }
-    }
-
-    public void rollSelected() {
-        for(Dice d : dices) {
-            if(d.isSelected()) {
-                d.roll();
-            }
-        }
+        return dices.get(dice).roll();
     }
 
     public void setStateAll(State state) {
@@ -55,30 +51,25 @@ public class DiceBox {
         }
     }
 
-    public void setSelectedAll(boolean selected) {
-        for(Dice d : dices) {
-            d.setSelected(selected);
+    public void setState(int dice, State state) {
+        if(dice < 0 || dice > dices.size()) {
+            throw new IndexOutOfBoundsException();
         }
+        dices.get(dice).setState(state);
     }
 
-    public void setVisibleSelected(boolean visibility) {
-        for(Dice d : dices) {
-            if(d.isSelected()) {
-                d.setVisible(visibility);
-            }
-        }
+    public List<Dice> getDices() {
+        return dices;
     }
 
-    public void setVisibleAll(boolean visibility) {
-        for(Dice d : dices) {
-            d.setVisible(visibility);
+    public Dice getDice(int dice) {
+        if(dice < 0 || dice > dices.size()) {
+            throw new IndexOutOfBoundsException();
         }
+        return dices.get(dice);
     }
 
-    public void setDisableAll(boolean disability) {
-        for(Dice d : dices) {
-            d.setDisable(disability);
-        }
+    public void setDices(List<Dice> dices) {
+        this.dices = dices;
     }
-
 }

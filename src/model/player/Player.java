@@ -10,34 +10,30 @@ import model.pot.Pot;
  */
 public class Player {
 
-    private final DiceBox diceBox;
-    private final Arrangement arrangement;
+    private DiceBox diceBox;
+    private Arrangement arrangement;
     private Money money;
 
     public Player(DiceBox diceBox, Arrangement arrangement, Money money) {
         this.diceBox = diceBox;
         this.arrangement = arrangement;
-
-        this.money = new Money(money.getValue());
-
-        this.arrangement.setDices(this.diceBox.getDices());
-    }
-
-    public void bet(int value, Pot pot) {
-        if(value < money.getValue()) {
-            pot.increase(value);
-            money.decrease(value);
-        } else {
-            //gracz nie ma tyle pieniedzy
-        }
+        this.money = money;
     }
 
     public DiceBox getDiceBox() {
         return diceBox;
     }
 
+    public void setDiceBox(DiceBox diceBox) {
+        this.diceBox = diceBox;
+    }
+
     public Arrangement getArrangement() {
         return arrangement;
+    }
+
+    public void setArrangement(Arrangement arrangement) {
+        this.arrangement = arrangement;
     }
 
     public Money getMoney() {

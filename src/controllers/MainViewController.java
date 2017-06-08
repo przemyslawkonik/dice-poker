@@ -20,47 +20,47 @@ public class MainViewController implements Initializable {
     private Button rollButton;
 
     @FXML
-    private DicesController enemyDicesController;
+    private DicesController computerDicesController;
 
     @FXML
-    private ArrangementController enemyArrangementController;
+    private CombinationController computerCombinationController;
 
     @FXML
-    private DicesController playerDicesController;
+    private DicesController humanDicesController;
 
     @FXML
-    private ArrangementController playerArrangementController;
+    private CombinationController humanCombinationController;
 
     @FXML
-    private MoneyController playerMoneyController;
+    private MoneyController humanMoneyController;
 
     @FXML
     private PotController potController;
 
     private Player human;
-    private Player enemy;
+    private Player computer;
     private Game game;
     private boolean firstTurn = true;
     private boolean secondTurn = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //playerArrangementController.getArrangement().setDices(playerDicesController.getDiceBox().getDices());
-        //enemyArrangementController.getArrangement().setDices(enemyDicesController.getDiceBox().getDices());
-        human = new Player(playerDicesController.getDiceBox(), playerArrangementController.getArrangement(), new Money(500));
-        enemy = new Player(enemyDicesController.getDiceBox(), enemyArrangementController.getArrangement(), new Money(500));
+        human = new Player(humanDicesController.getDiceBox(), humanCombinationController.getArrangement(), humanMoneyController.getMoney());
+        computer = new Player(computerDicesController.getDiceBox(), computerCombinationController.getArrangement(), new Money(1000));
 
-        playerMoneyController.getMoney().textProperty().bind(human.getMoney().valueProperty().asString());
-        //human.bet(300, potController.getPot());
+        humanCombinationController.getArrangement().setDiceBox(human.getDiceBox());
+        computerCombinationController.getArrangement().setDiceBox(computer.getDiceBox());
 
-        game = new Game(human, enemy);
-        game.prepare();
+        game = new Game(human, computer);
+        game.setHumanController(humanDicesController, humanCombinationController, humanMoneyController);
+        game.setComputerControllers(computerDicesController, computerCombinationController);
+        prepareGameView();
     }
 
     @FXML
     public void handleAction() throws Exception{
         if(firstTurn) {
-            game.prepare();
+            prepareGameView();
             if(new Bet().set(human, potController.getPot(), "Set bet")) {
                 game.playFirstRound();
                 firstTurn = false;
@@ -70,38 +70,19 @@ public class MainViewController implements Initializable {
             if(new Bet().set(human, potController.getPot(), "Increase bet")) {
                 game.playSecondRound();
                 secondTurn = false;
+                firstTurn = true;
             }
         }
-        else /*if(!firstTurn && !secondTurn)*/{
-            //testy
-            /*
-            if(playerArrangementController.getArrangement().getCombination().getWorth() > enemyArrangementController.getArrangement().getCombination().getWorth()) {
-                System.out.println("win");
-            } else if(playerArrangementController.getArrangement().getCombination().getWorth() < enemyArrangementController.getArrangement().getCombination().getWorth()) {
-                System.out.println("lost");
-            } else {
-                if(playerArrangementController.getArrangement().getCombinationValue() > enemyArrangementController.getArrangement().getCombinationValue()) {
-                    System.out.println("win");
-                } else if(playerArrangementController.getArrangement().getCombinationValue() < enemyArrangementController.getArrangement().getCombinationValue()) {
-                    System.out.println("lost");
-                } else {
-                    System.out.println("draw");
-                }
-            }
-            */
-            if(playerArrangementController.getArrangement().getCombinationValue() > enemyArrangementController.getArrangement().getCombinationValue()) {
-                System.out.println("win");
-            } else if(playerArrangementController.getArrangement().getCombinationValue() < enemyArrangementController.getArrangement().getCombinationValue()) {
-                System.out.println("lost");
-            } else {
-                System.out.println("draw");
-            }
-            //koniec testow
-            System.out.println(playerArrangementController.getArrangement().getCombinationValue());
-            System.out.println(enemyArrangementController.getArrangement().getCombinationValue());
+    }
 
-            firstTurn = true;
-            secondTurn = false;
-        }
+    private void prepareGameView() {
+        humanDicesController.setVisibleAll(false);
+        humanDicesController.setSelectedAll(false);
+        humanCombinationController.getCombination().setVisible(false);
+
+        computerDicesController.setVisibleAll(false);
+        computerDicesController.setSelectedAll(false);
+        computerDicesController.setDisableAll(true);
+        computerCombinationController.getCombination().setVisible(false);
     }
 }

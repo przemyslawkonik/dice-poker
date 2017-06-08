@@ -4,14 +4,13 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.ToggleButton;
 
 import java.util.Random;
 
 /**
- * Created by Przemysław Konik on 2017-06-07.
+ * Created by Przemysław Konik on 2017-06-08.
  */
-public class Dice extends ToggleButton {
+public class Dice {
 
     private IntegerProperty value;
     private ObjectProperty<State> state;
@@ -20,7 +19,6 @@ public class Dice extends ToggleButton {
     public Dice() {
         maxValue = 6;
         initVariables();
-        initBindings();
     }
 
     public int roll() {
@@ -29,14 +27,8 @@ public class Dice extends ToggleButton {
     }
 
     private void initVariables() {
-        value = new SimpleIntegerProperty();
+        value = new SimpleIntegerProperty(0);
         state = new SimpleObjectProperty<>(State.UNMARKED);
-
-    }
-
-    private void initBindings() {
-        this.textProperty().bind(this.value.asString());
-        this.idProperty().bind(this.state.asString());
     }
 
     public int getValue() {
@@ -61,5 +53,9 @@ public class Dice extends ToggleButton {
 
     public void setState(State state) {
         this.state.set(state);
+    }
+
+    public int getMaxValue() {
+        return maxValue;
     }
 }

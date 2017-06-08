@@ -2,8 +2,8 @@ package model.combination;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.Label;
 import model.dice.Dice;
+import model.dice.DiceBox;
 import model.dice.State;
 
 import java.util.*;
@@ -11,28 +11,46 @@ import java.util.*;
 /**
  * Created by Przemysław Konik on 2017-06-07.
  */
-public class Arrangement extends Label {
+public class Arrangement {
 
     private ObjectProperty<Combination> combination;
-    private List<Dice> dices;
-    private int combinationValue;
+    private DiceBox diceBox;
+    private int combinationWorth;
 
     public Arrangement() {
-        initVariables();
-        initBindings();
-    }
-
-    private void initVariables() {
         combination = new SimpleObjectProperty<>(Combination.NOTHING);
-        dices = new LinkedList<>();
+        combinationWorth = combination.getValue().getWorth();
+        diceBox = new DiceBox();
     }
 
-    private void initBindings() {
-        this.textProperty().bind(this.combinationProperty().asString());
+    public Arrangement(DiceBox diceBox) {
+        combination = new SimpleObjectProperty<>(Combination.NOTHING);
+        combinationWorth = combination.get().getWorth();
+        this.diceBox = diceBox;
     }
 
-    public void setDices(List<Dice> dices) {
-        this.dices = dices;
+    public void setDiceBox(DiceBox diceBox) {
+        this.diceBox = diceBox;
+    }
+
+    public void setCombination(Combination combination) {
+        this.combination.set(combination);
+    }
+
+    public Combination getCombination() {
+        return combination.get();
+    }
+
+    public DiceBox getDiceBox() {
+        return diceBox;
+    }
+
+    public int getCombinationWorth() {
+        return combinationWorth;
+    }
+
+    public void setCombinationWorth(int combinationWorth) {
+        this.combinationWorth = combinationWorth;
     }
 
     public ObjectProperty<Combination> combinationProperty() {
@@ -69,6 +87,7 @@ public class Arrangement extends Label {
     //kluczem mapy jest liczba oczek, a wartoscia ilosc wystapien
     private Map<Integer, Integer> sort() {
         Map<Integer, Integer> map = new HashMap<>();
+        List<Dice> dices = diceBox.getDices();
 
         for(Dice d : dices) {
             int key = d.getValue();
@@ -114,6 +133,7 @@ public class Arrangement extends Label {
 
     private void markDices(Map<Integer, Integer> map) {
         unMarkDices();
+        List<Dice> dices = diceBox.getDices();
 
         switch (combination.getValue()) {
             case STRAIGHT_FLUSH:
@@ -172,7 +192,7 @@ public class Arrangement extends Label {
     }
 
     private void unMarkDices() {
-        for(Dice d : dices) {
+        for(Dice d : diceBox.getDices()) {
             d.setState(State.UNMARKED);
         }
     }
@@ -201,59 +221,51 @@ public class Arrangement extends Label {
         switch (combination.getValue()) {
             case STRAIGHT_FLUSH: {
                 int key = findKey(5, map);
-                combinationValue = key*combination.getValue().getWorth();
+                combinationWorth = key*combination.getValue().getWorth();
                 break;
             }
             case FULL_HOUSE: {
                 int key = findKey(3, map);
-                combinationValue = key*combination.getValue().getWorth();
+                combinationWorth = key*combination.getValue().getWorth();
                 break;
             }
             case BIG_STRAIGHT: {
-                combinationValue = combination.getValue().getWorth();
+                combinationWorth = combination.getValue().getWorth();
                 break;
             }
             case SMALL_STRAIGHT: {
-                combinationValue = combination.getValue().getWorth();
+                combinationWorth = combination.getValue().getWorth();
                 break;
             }
             case QUADS: {
                 int key = findKey(4, map);
-                combinationValue = key*combination.getValue().getWorth();
+                combinationWorth = key*combination.getValue().getWorth();
                 break;
             }
             case THREE_OF_A_KIND: {
                 int key = findKey(3, map);
-                combinationValue = key*combination.getValue().getWorth();
+                combinationWorth = key*combination.getValue().getWorth();
                 break;
             }
             case TWO_PAIR: {
                 List<Integer> keys = findKeys(2, map);
                 if(keys.get(0) > keys.get(1)) {
-                    combinationValue = keys.get(0)*combination.getValue().getWorth();
+                    combinationWorth = keys.get(0)*combination.getValue().getWorth();
                 } else {
-                    combinationValue = keys.get(1)*combination.getValue().getWorth();
+                    combinationWorth = keys.get(1)*combination.getValue().getWorth();
                 }
                 break;
             }
             case ONE_PAIR: {
                 int key = findKey(2, map);
-                combinationValue = key*combination.getValue().getWorth();
+                combinationWorth = key*combination.getValue().getWorth();
                 break;
             }
             case NOTHING: {
-                combinationValue = combination.getValue().getWorth();
+                combinationWorth = combination.getValue().getWorth();
                 break;
             }
         }
-    }
-
-    public int getCombinationValue() {
-        return combinationValue;
-    }
-
-    public Combination getCombination() {
-        return combination.get();
     }
 
 }

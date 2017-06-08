@@ -7,25 +7,25 @@
     <center>
         <VBox alignment="CENTER" BorderPane.alignment="CENTER">
            <children>
-               <fx:include fx:id="enemyDices" source="dices.fxml" />
-               <fx:include fx:id="playerDices" source="dices.fxml" />
+               <fx:include fx:id="computerDices" source="dices.fxml" />
+               <fx:include fx:id="humanDices" source="dices.fxml" />
            </children>
         </VBox>
     </center>
    <right>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" text="Button" />
-             <fx:include source="money.fxml" fx:id="playerMoney"/>
+            <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" text="Roll" />
+             <fx:include source="money.fxml" fx:id="humanMoney"/>
          </children>
       </VBox>
    </right>
    <left>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <fx:include source="arrangement.fxml" fx:id="enemyArrangement"/>
+            <fx:include source="combination.fxml" fx:id="computerCombination"/>
              <fx:include source="pot.fxml" fx:id="pot"/>
-            <fx:include source="arrangement.fxml" fx:id="playerArrangement"/>
+            <fx:include source="combination.fxml" fx:id="humanCombination"/>
          </children>
       </VBox>
    </left>

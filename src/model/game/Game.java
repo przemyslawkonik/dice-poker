@@ -1,10 +1,15 @@
 package model.game;
 
+import controllers.CombinationController;
+import controllers.DicesController;
+import controllers.MoneyController;
 import javafx.application.Platform;
-import model.dice.Dice;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import model.dice.State;
 import model.player.Player;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -13,55 +18,63 @@ import java.util.Random;
 public class Game {
 
     private Player human;
-    private Player enemy;
+    private Player computer;
 
-    public Game(Player human, Player enemy) {
+    private DicesController humanDicesController;
+    private DicesController computerDicesController;
+
+    private CombinationController humanCombinationController;
+    private CombinationController computerCombinationController;
+
+    private MoneyController humanMoneyController;
+
+    public Game(Player human, Player computer) {
         this.human = human;
-        this.enemy = enemy;
+        this.computer = computer;
     }
 
-    public void prepare() {
-        human.getDiceBox().setVisibleAll(false);
-        human.getDiceBox().setSelectedAll(false);
-        human.getArrangement().setVisible(false);
+    public void setHumanController(DicesController dicesController, CombinationController combinationController, MoneyController moneyController) {
+        this.humanDicesController = dicesController;
+        this.humanCombinationController = combinationController;
+        this.humanMoneyController = moneyController;
+    }
 
-        enemy.getDiceBox().setVisibleAll(false);
-        enemy.getDiceBox().setSelectedAll(false);
-        enemy.getDiceBox().setDisableAll(true);
-        enemy.getArrangement().setVisible(false);
+    public void setComputerControllers(DicesController dicesController, CombinationController combinationController) {
+        this.computerDicesController = dicesController;
+        this.computerCombinationController = combinationController;
     }
 
     public void playFirstRound() {
         new Thread( () -> {
             handleScreen(2000);
-            firstTurn(human);
+            firstTurn(human, humanDicesController, humanCombinationController);
 
-            human.getDiceBox().setDisableAll(true);
+            humanDicesController.setDisableAll(true);
 
             handleScreen(2000);
-            firstTurn(enemy);
+            firstTurn(computer, computerDicesController, computerCombinationController);
 
-            human.getDiceBox().setDisableAll(false);
+            humanDicesController.setDisableAll(false);
         }).start();
     }
 
     public void playSecondRound() {
         new Thread( () -> {
-            human.getArrangement().setVisible(false);
-            human.getDiceBox().setVisibleSelected(false);
-            human.getDiceBox().setDisableAll(true);
+            humanCombinationController.getCombination().setVisible(false);
+            humanDicesController.setVisibleSelected(false);
+            humanDicesController.setDisableAll(true);
             human.getDiceBox().setStateAll(State.UNMARKED);
             handleScreen(2000);
-            secondTurn(human);
+            secondTurn(human, humanDicesController, humanCombinationController);
 
             //human.getDiceBox().setSelectedAll(false);
 
             enemyAI();
-            enemy.getArrangement().setVisible(false);
-            enemy.getDiceBox().setVisibleSelected(false);
-            enemy.getDiceBox().setStateAll(State.UNMARKED);
+            computerCombinationController.getCombination().setVisible(false);
+            computerDicesController.setVisibleSelected(false);
+            computer.getDiceBox().setStateAll(State.UNMARKED);
             handleScreen(2000);
-            secondTurn(enemy);
+            secondTurn(computer, computerDicesController, computerCombinationController);
 
             //enemy.getDiceBox().setSelectedAll(false);
             //human.getDiceBox().setSelectedAll(false);
@@ -71,23 +84,23 @@ public class Game {
     }
 
 
-    private void firstTurn(Player player) {
+    private void firstTurn(Player player, DicesController dicesController, CombinationController combinationController) {
         Platform.runLater( () -> {
             player.getDiceBox().rollAll();
             player.getArrangement().calculate();
-            player.getDiceBox().setVisibleAll(true);
-            player.getArrangement().setVisible(true);
+            dicesController.setVisibleAll(true);
+            combinationController.getCombination().setVisible(true);
         });
     }
 
-    private void secondTurn(Player player) {
+    private void secondTurn(Player player, DicesController dicesController, CombinationController combinationController) {
         Platform.runLater( () -> {
-            player.getDiceBox().rollSelected();
+            dicesController.rollSelected();
             player.getArrangement().calculate();
-            player.getDiceBox().setVisibleAll(true);
-            player.getArrangement().setVisible(true);
+            dicesController.setVisibleAll(true);
+            combinationController.getCombination().setVisible(true);
 
-            player.getDiceBox().setSelectedAll(false);
+            dicesController.setSelectedAll(false);
         });
     }
 
@@ -98,7 +111,7 @@ public class Game {
     }
 
     private void enemyAI() {
-        for(Dice d : enemy.getDiceBox().getDices()) {
+        for(ToggleButton d : computerDicesController.getDices()) {
             int x = new Random().nextInt(2);
             if(x==0) {
                 d.setSelected(true);
