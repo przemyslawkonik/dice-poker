@@ -60,6 +60,7 @@ public class MainViewController implements Initializable {
     private Game game;
     private Statistics statistics;
     private boolean firstTurn = true;
+    private boolean isBet = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,7 +89,11 @@ public class MainViewController implements Initializable {
 
         if(firstTurn) {
             prepareView();
-            if (new Bet().set(human, pot, "Set bet")) {
+            isBet = new Bet().set(human, pot, "Set bet");
+            if(pot.getValue() == 0) {
+                new AlertBox().displayInfo("You have to bet some money!");
+            }
+            if (isBet && pot.getValue() > 0) {
                 new Thread(() -> {
                     rollButton.setDisable(true);
 
@@ -119,7 +124,8 @@ public class MainViewController implements Initializable {
                 firstTurn = false;
             }
         } else {
-            if(new Bet().set(human, pot, "Increase or accept bet")) {
+            isBet = (human.getMoney().getValue() <= 0 || new Bet().set(human, pot, "Increase or accept bet"));
+            if(isBet) {
                 new Thread( () -> {
                     rollButton.setDisable(true);
 
@@ -181,6 +187,8 @@ public class MainViewController implements Initializable {
         computerDicesController.setDisableAll(true);
 
         progressBarController.setVisible(false);
+
+        isBet = false;
     }
 
     private void checkIfEnd() {
