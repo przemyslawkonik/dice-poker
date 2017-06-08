@@ -35,10 +35,8 @@ public class Game {
     public void secondTurn(Player player, List<ToggleButton> dices) {
         for(int i=0; i<dices.size(); i++) {
             if(dices.get(i).isSelected()) {
-                System.out.print("roll"+ " ");
                 player.getDiceBox().getDice(i).roll();
             }
-            System.out.println();
         }
         player.getArrangement().calculate();
     }

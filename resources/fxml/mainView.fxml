@@ -5,12 +5,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
     <center>
-      <HBox>
+      <HBox maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
-              <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+            <Separator orientation="VERTICAL" />
+              <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="20.0" BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
                  <children>
                      <fx:include fx:id="computerCombination" source="combination.fxml" />
                      <fx:include fx:id="computerDices" source="dices.fxml" />
@@ -19,7 +19,7 @@
                      <fx:include fx:id="humanCombination" source="combination.fxml" />
                  </children>
               </VBox>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Separator orientation="VERTICAL" />
          </children>
       </HBox>
     </center>

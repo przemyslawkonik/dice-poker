@@ -89,14 +89,14 @@ public class MainViewController implements Initializable {
         if(firstTurn) {
             prepareView();
             isBet = new Bet().set(human, pot, "Set bet");
-            if(pot.getValue() == 0) {
+            if(isBet && pot.getValue() == 0) {
                 new AlertBox().displayInfo("You have to bet some money!");
             }
             if (isBet && pot.getValue() > 0) {
                 new Thread(() -> {
                     rollButton.setDisable(true);
 
-                    progressBarController.run(0.1, 150);
+                    progressBarController.run();
 
                     Platform.runLater(() -> {
                         game.firstTurn(human);
@@ -106,7 +106,7 @@ public class MainViewController implements Initializable {
                     humanDicesController.setVisibleAll(true);
                     humanCombinationController.setVisible(true);
 
-                    progressBarController.run(0.1, 150);
+                    progressBarController.run();
 
                     Platform.runLater(() -> {
                         game.firstTurn(computer);
@@ -133,7 +133,7 @@ public class MainViewController implements Initializable {
                     humanDicesController.setDisableAll(true);
                     human.getDiceBox().setStateAll(State.UNMARKED);
 
-                    progressBarController.run(0.1, 150);
+                    progressBarController.run();
 
                     Platform.runLater(() -> {
                         game.secondTurn(human, humanDicesController.getDices());
@@ -149,7 +149,7 @@ public class MainViewController implements Initializable {
                     computerDicesController.setVisibleSelected(false);
                     computer.getDiceBox().setStateAll(State.UNMARKED);
 
-                    progressBarController.run(0.1, 150);
+                    progressBarController.run();
 
                     Platform.runLater(() -> {
                         game.secondTurn(computer, computerDicesController.getDices());

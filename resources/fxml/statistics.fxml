@@ -6,7 +6,7 @@
 
 <HBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticsController">
    <children>
-      <TitledPane animated="false" text="Statistics">
+      <TitledPane animated="false" contentDisplay="CENTER" text="Statistics" HBox.hgrow="ALWAYS">
          <content>
             <GridPane>
               <columnConstraints>

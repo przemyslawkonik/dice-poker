@@ -12,11 +12,14 @@ public class ProgressBarController {
     @FXML
     private ProgressBar progress;
 
+    private final double step = 0.1;
+    private final int gap = 250;
+
     public void setVisible(boolean visibility) {
         progress.setVisible(visibility);
     }
 
-    public void run(double step, int gap) {
+    public void run() {
         double max = 1 / step;
         progress.setProgress(0);
         progress.setVisible(true);
