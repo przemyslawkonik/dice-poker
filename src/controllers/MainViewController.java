@@ -74,6 +74,7 @@ public class MainViewController implements Initializable {
         }
         else /*if(!firstTurn && !secondTurn)*/{
             //testy
+            /*
             if(playerArrangementController.getArrangement().getCombination().getWorth() > enemyArrangementController.getArrangement().getCombination().getWorth()) {
                 System.out.println("win");
             } else if(playerArrangementController.getArrangement().getCombination().getWorth() < enemyArrangementController.getArrangement().getCombination().getWorth()) {
@@ -86,6 +87,14 @@ public class MainViewController implements Initializable {
                 } else {
                     System.out.println("draw");
                 }
+            }
+            */
+            if(playerArrangementController.getArrangement().getCombinationValue() > enemyArrangementController.getArrangement().getCombinationValue()) {
+                System.out.println("win");
+            } else if(playerArrangementController.getArrangement().getCombinationValue() < enemyArrangementController.getArrangement().getCombinationValue()) {
+                System.out.println("lost");
+            } else {
+                System.out.println("draw");
             }
             //koniec testow
             System.out.println(playerArrangementController.getArrangement().getCombinationValue());
