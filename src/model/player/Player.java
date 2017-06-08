@@ -19,7 +19,7 @@ public class Player {
         this.arrangement = arrangement;
         this.money = money;
 
-        arrangement.setDiceBox(diceBox);
+        this.arrangement.setDiceBox(this.diceBox);
     }
 
     public DiceBox getDiceBox() {

@@ -1,7 +1,12 @@
 package model.game;
 
+import javafx.scene.control.ToggleButton;
 import model.player.Player;
 import model.pot.Pot;
+import tools.AlertBox;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Przemysław Konik on 2017-06-07.
@@ -25,6 +30,75 @@ public class Game {
     public void firstTurn(Player player) {
         player.getDiceBox().rollAll();
         player.getArrangement().calculate();
+    }
+
+    public void secondTurn(Player player, List<ToggleButton> dices) {
+        for(int i=0; i<dices.size(); i++) {
+            if(dices.get(i).isSelected()) {
+                player.getDiceBox().getDice(i).roll();
+            }
+        }
+        player.getArrangement().calculate();
+    }
+
+    public Result calculateResult(Player human, Player computer) {
+        if (human.getArrangement().getCombination().getWorth() > computer.getArrangement().getCombination().getWorth()) {
+            return Result.WIN;
+        } else if (human.getArrangement().getCombination().getWorth() < computer.getArrangement().getCombination().getWorth()) {
+            return Result.LOST;
+        } else {
+            if(human.getArrangement().getCombinationValue() > computer.getArrangement().getCombinationValue()) {
+                return Result.WIN;
+            } else if(human.getArrangement().getCombinationValue() < computer.getArrangement().getCombinationValue()) {
+                return Result.LOST;
+            } else {
+                return Result.DRAW;
+            }
+        }
+    }
+
+    public void displayResult(Result result) {
+        AlertBox alertBox = new AlertBox();
+        try {
+            switch (result) {
+                case WIN: {
+                    alertBox.displayInfo("You won!");
+                    break;
+                }
+                case LOST: {
+                    alertBox.displayInfo("You lost!");
+                    break;
+                }
+                case DRAW: {
+                    alertBox.displayInfo("Draw!");
+                    break;
+                }
+            }
+        }catch (IOException e) {}
+    }
+
+    public void moneyResult(Player player, Pot pot, Result result) {
+        switch (result) {
+            case WIN: {
+                player.getMoney().increase(pot.getValue());
+                break;
+            }
+            case LOST: {
+                if(player.getMoney().getValue() <= 0) {
+                    boolean choice = false;
+                    try {
+                        choice = new AlertBox().displayChoice("You have lost all your money. Do you want to start a new game?");
+                    }catch (IOException e) {}
+                    if(choice) {
+                        player.getMoney().setValue(1000);
+                    }
+                }
+                break;
+            }
+            case DRAW: {
+                player.getMoney().increase(pot.getValue()/2);
+            }
+        }
     }
 }
 

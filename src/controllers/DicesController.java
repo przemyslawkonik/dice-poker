@@ -44,6 +44,10 @@ public class DicesController implements Initializable {
         ));
     }
 
+    public List<ToggleButton> getDices() {
+        return dices;
+    }
+
     public void bind(DiceBox diceBox) {
         for(int i=0; i<dices.size(); i++) {
             dices.get(i).textProperty().bind(diceBox.getDice(i).valueProperty().asString());

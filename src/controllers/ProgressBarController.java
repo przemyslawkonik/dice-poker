@@ -16,9 +16,10 @@ public class ProgressBarController {
         progress.setVisible(visibility);
     }
 
-    public void run(int step, int gap) {
+    public void run(double step, int gap) {
         double max = 1 / step;
         progress.setProgress(0);
+        progress.setVisible(true);
 
         for (int i = 0; i < max; i++) {
             Platform.runLater(() -> {
@@ -26,6 +27,7 @@ public class ProgressBarController {
             });
             handleScreen(gap);
         }
+        progress.setVisible(false);
     }
 
     private void handleScreen(int miliseconds) {

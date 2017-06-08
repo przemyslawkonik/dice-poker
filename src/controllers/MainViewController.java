@@ -1,17 +1,22 @@
 package controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import model.bet.Bet;
 import model.combination.Arrangement;
 import model.dice.DiceBox;
+import model.dice.State;
 import model.game.Game;
+import model.game.Result;
 import model.money.Money;
 import model.player.Player;
 import model.pot.Pot;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -40,12 +45,14 @@ public class MainViewController implements Initializable {
     @FXML
     private PotController potController;
 
+    @FXML
+    private ProgressBarController progressBarController;
+
     private Player human;
     private Player computer;
     private Pot pot;
     private Game game;
     private boolean firstTurn = true;
-    private boolean secondTurn = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,34 +70,94 @@ public class MainViewController implements Initializable {
 
         game = new Game(/*human, computer, pot*/);
 
-        prepareGameView();
+        prepareView();
     }
 
     @FXML
     public void handleAction() throws Exception{
-        /*
+
         if(firstTurn) {
-            game.prepareView();
-            if(new Bet().set(human, potController.getPot(), "Set bet")) {
-                game.playFirstRound();
+            prepareView();
+            if (new Bet().set(human, pot, "Set bet")) {
+                new Thread(() -> {
+                    progressBarController.run(0.1, 150);
+
+                    Platform.runLater(() -> {
+                        game.firstTurn(human);
+                    });
+
+                    humanDicesController.setDisableAll(true);
+                    humanDicesController.setVisibleAll(true);
+                    humanCombinationController.setVisible(true);
+
+                    progressBarController.run(0.1, 150);
+
+                    Platform.runLater(() -> {
+                        game.firstTurn(computer);
+                    });
+
+                    computerDicesController.setVisibleAll(true);
+                    computerCombinationController.setVisible(true);
+
+                    humanDicesController.setDisableAll(false);
+                }).start();
+
                 firstTurn = false;
-                secondTurn = true;
             }
-        } else if(secondTurn){
-            if(new Bet().set(human, potController.getPot(), "Increase bet")) {
-                game.playSecondRound();
-                secondTurn = false;
+        } else {
+            if(new Bet().set(human, pot, "Increase bet")) {
+                new Thread( () -> {
+                    humanCombinationController.setVisible(false);
+                    humanDicesController.setVisibleSelected(false);
+                    humanDicesController.setDisableAll(true);
+                    human.getDiceBox().setStateAll(State.UNMARKED);
+
+                    progressBarController.run(0.1, 150);
+
+                    Platform.runLater( () -> {
+                        game.secondTurn(human, humanDicesController.getDices());
+                    });
+
+                    humanDicesController.setVisibleAll(true);
+                    humanCombinationController.setVisible(true);
+                    humanDicesController.setSelectedAll(false);
+
+                    computerCombinationController.setVisible(false);
+                    computerDicesController.setVisibleSelected(false);
+                    computer.getDiceBox().setStateAll(State.UNMARKED);
+
+                    progressBarController.run(0.1, 150);
+
+                    Platform.runLater(() -> {
+                        game.secondTurn(computer, computerDicesController.getDices());
+                    });
+
+                    computerDicesController.setVisibleAll(true);
+                    computerCombinationController.setVisible(true);
+                    computerDicesController.setSelectedAll(false);
+
+                    //rezultat
+                    Result result = game.calculateResult(human, computer);
+                    Platform.runLater(() -> {
+                        game.displayResult(result);
+                        game.moneyResult(human, pot, result);
+                    });
+
+                }).start();
+
                 firstTurn = true;
             }
         }
-        */
     }
 
-    private void prepareGameView() {
+    private void prepareView() {
         humanCombinationController.setVisible(false);
         humanDicesController.setVisibleAll(false);
 
         computerCombinationController.setVisible(false);
         computerDicesController.setVisibleAll(false);
+        computerDicesController.setDisableAll(true);
+
+        progressBarController.setVisible(false);
     }
 }

@@ -9,6 +9,7 @@
         <VBox alignment="CENTER" BorderPane.alignment="CENTER">
            <children>
                <fx:include fx:id="computerDices" source="dices.fxml" />
+               <fx:include source="progressBar.fxml" fx:id="progressBar"/>
                <fx:include fx:id="humanDices" source="dices.fxml" />
            </children>
         </VBox>
