@@ -119,7 +119,7 @@ public class MainViewController implements Initializable {
                 firstTurn = false;
             }
         } else {
-            if(new Bet().set(human, pot, "Increase bet")) {
+            if(new Bet().set(human, pot, "Increase or accept bet")) {
                 new Thread( () -> {
                     rollButton.setDisable(true);
 
@@ -146,6 +146,7 @@ public class MainViewController implements Initializable {
 
                     Platform.runLater(() -> {
                         game.secondTurn(computer, computerDicesController.getDices());
+                        rollButton.setText("Roll");
                     });
 
                     computerDicesController.setVisibleAll(true);
@@ -180,8 +181,6 @@ public class MainViewController implements Initializable {
         computerDicesController.setDisableAll(true);
 
         progressBarController.setVisible(false);
-
-        rollButton.setText("Roll");
     }
 
     private void checkIfEnd() {
