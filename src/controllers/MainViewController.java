@@ -11,6 +11,7 @@ import model.dice.DiceBox;
 import model.dice.State;
 import model.game.Game;
 import model.game.Result;
+import model.game.Statistics;
 import model.money.Money;
 import model.player.Player;
 import model.pot.Pot;
@@ -50,10 +51,14 @@ public class MainViewController implements Initializable {
     @FXML
     private ProgressBarController progressBarController;
 
+    @FXML
+    private StatisticsController statisticsController;
+
     private Player human;
     private Player computer;
     private Pot pot;
     private Game game;
+    private Statistics statistics;
     private boolean firstTurn = true;
 
     @Override
@@ -69,6 +74,9 @@ public class MainViewController implements Initializable {
 
         pot = new Pot();
         potController.bind(pot);
+
+        statistics = new Statistics();
+        statisticsController.bind(statistics);
 
         game = new Game(/*human, computer, pot*/);
 
@@ -152,6 +160,7 @@ public class MainViewController implements Initializable {
                         game.displayResult(result);
                         game.moneyResult(human, pot, result);
                         pot.setValue(0);
+                        statistics.add(result);
                         checkIfEnd();
                     });
 
