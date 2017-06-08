@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import model.game.Game;
-import model.game.Result;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,5 +27,6 @@ public class ResultController implements Initializable {
 
     public void bind(Game game) {
         this.result.textProperty().bind(game.resultProperty().asString());
+        this.result.idProperty().bind(game.resultProperty().asString());
     }
 }

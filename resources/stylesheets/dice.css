@@ -1,20 +1,27 @@
 #marked {
-    -fx-border-color: orangered;
+    -fx-background-color: saddlebrown;
+    -fx-border-color: gold;
+    -fx-text-fill: gold;
 }
 
 #marked:hover {
-    -fx-background-color: chartreuse;
+    -fx-background-color: sandybrown;
 }
 
 #marked:selected {
-    -fx-background-color: chartreuse;
+    -fx-background-color: sandybrown;
+}
+
+#unmarked {
+    -fx-background-color: saddlebrown;
+    -fx-text-fill: black;
 }
 
 #unmarked:hover {
-    -fx-background-color: chartreuse;
+    -fx-background-color: sandybrown;
 }
 
 #unmarked:selected {
-    -fx-background-color: chartreuse;
+    -fx-background-color: sandybrown;
 }
 

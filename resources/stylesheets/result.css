@@ -1,0 +1,11 @@
+#Win {
+    -fx-text-fill: green;
+}
+
+#Lost {
+    -fx-text-fill: red;
+}
+
+#Draw {
+    -fx-text-fill: blue;
+}
