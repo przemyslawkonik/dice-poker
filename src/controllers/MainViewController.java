@@ -14,7 +14,9 @@ import model.game.Result;
 import model.money.Money;
 import model.player.Player;
 import model.pot.Pot;
+import tools.AlertBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -141,6 +143,8 @@ public class MainViewController implements Initializable {
                     Platform.runLater(() -> {
                         game.displayResult(result);
                         game.moneyResult(human, pot, result);
+                        pot.setValue(0);
+                        checkIfEnd();
                     });
 
                 }).start();
@@ -159,5 +163,21 @@ public class MainViewController implements Initializable {
         computerDicesController.setDisableAll(true);
 
         progressBarController.setVisible(false);
+    }
+
+    private void checkIfEnd() {
+        if (human.getMoney().getValue() <= 0) {
+            boolean choice = false;
+            try {
+                choice = new AlertBox().displayChoice("You have lost all your money! Do you want to start a new game?");
+            } catch (IOException e) {
+            }
+            if(choice) {
+                prepareView();
+                human.getMoney().setValue(1000);
+            } else {
+                System.exit(0);
+            }
+        }
     }
 }

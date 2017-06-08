@@ -29,7 +29,7 @@ public class AlertBox {
     }
 
     public boolean displayChoice(String message) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceBoxView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceBox.fxml"));
 
         Scene scene = new Scene(loader.load());
         Stage stage = new Stage();

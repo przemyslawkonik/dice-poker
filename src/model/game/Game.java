@@ -84,15 +84,6 @@ public class Game {
                 break;
             }
             case LOST: {
-                if(player.getMoney().getValue() <= 0) {
-                    boolean choice = false;
-                    try {
-                        choice = new AlertBox().displayChoice("You have lost all your money. Do you want to start a new game?");
-                    }catch (IOException e) {}
-                    if(choice) {
-                        player.getMoney().setValue(1000);
-                    }
-                }
                 break;
             }
             case DRAW: {
