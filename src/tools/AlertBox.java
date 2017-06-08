@@ -1,5 +1,6 @@
 package tools;
 
+import controllers.ChoiceBoxController;
 import controllers.InfoBoxController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,5 +27,22 @@ public class AlertBox {
         infoBoxController.setMessage(message);
 
         stage.showAndWait();
+    }
+
+    public boolean displayChoice(String message) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceBoxView.fxml"));
+
+        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        ChoiceBoxController choiceBoxController = loader.getController();
+        choiceBoxController.setMessage(message);
+
+        stage.showAndWait();
+
+        boolean result = choiceBoxController.getResult();
+        return result;
     }
 }
