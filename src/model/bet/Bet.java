@@ -29,7 +29,7 @@ public class Bet {
 
         if(betController.isBet()) {
             player.getMoney().decrease(betController.getValue());
-            pot.increase(betController.getValue());
+            pot.increase(betController.getValue()*2);
             return true;
         }
         return false;
