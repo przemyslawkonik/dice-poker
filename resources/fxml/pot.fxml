@@ -4,10 +4,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<HBox fx:controller="controllers.PotController" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER_LEFT" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PotController">
    <children>
       <Label text="Pot:" />
-      <Label fx:id="pot" text="0" />
+      <Label fx:id="pot" maxWidth="1.7976931348623157E308" prefWidth="200.0" text="0" HBox.hgrow="ALWAYS" />
    </children>
 </HBox>
