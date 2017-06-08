@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import model.bet.Bet;
 import model.combination.Arrangement;
 import model.dice.DiceBox;
@@ -13,13 +12,13 @@ import model.game.Game;
 import model.game.Result;
 import model.game.Statistics;
 import model.money.Money;
+import model.player.ComputerAI;
 import model.player.Player;
 import model.pot.Pot;
 import tools.AlertBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -136,13 +135,15 @@ public class MainViewController implements Initializable {
 
                     progressBarController.run(0.1, 150);
 
-                    Platform.runLater( () -> {
+                    Platform.runLater(() -> {
                         game.secondTurn(human, humanDicesController.getDices());
+
+                        humanDicesController.setVisibleAll(true);
+                        humanCombinationController.setVisible(true);
+                        humanDicesController.setSelectedAll(false);
                     });
 
-                    humanDicesController.setVisibleAll(true);
-                    humanCombinationController.setVisible(true);
-                    humanDicesController.setSelectedAll(false);
+                    new ComputerAI().run(computer, human, computerDicesController.getDices());
 
                     computerCombinationController.setVisible(false);
                     computerDicesController.setVisibleSelected(false);
@@ -152,18 +153,19 @@ public class MainViewController implements Initializable {
 
                     Platform.runLater(() -> {
                         game.secondTurn(computer, computerDicesController.getDices());
+
+                        computerDicesController.setVisibleAll(true);
+                        computerCombinationController.setVisible(true);
+                        computerDicesController.setSelectedAll(false);
+
                         rollButton.setText("Roll");
                     });
-
-                    computerDicesController.setVisibleAll(true);
-                    computerCombinationController.setVisible(true);
-                    computerDicesController.setSelectedAll(false);
 
                     rollButton.setDisable(false);
 
                     //rezultat
-                    Result result = game.calculateResult(human, computer);
                     Platform.runLater(() -> {
+                        Result result = game.calculateResult(human, computer);
                         game.displayResult(result);
                         game.moneyResult(human, pot, result);
                         pot.setValue(0);
