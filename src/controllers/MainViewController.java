@@ -63,11 +63,12 @@ public class MainViewController implements Initializable {
     private Pot pot;
     private Game game;
     private Statistics statistics;
-    private boolean firstTurn = true;
-    private boolean isBet = false;
+    private boolean firstTurn;
 
     public MainViewController() {
         pot = new Pot();
+
+        firstTurn = true;
     }
 
     @Override
@@ -91,13 +92,11 @@ public class MainViewController implements Initializable {
     @FXML
     public void handleAction() throws Exception{
 
+        AlertBox alertBox = new AlertBox();
+
         if(firstTurn) {
             prepareView();
-            isBet = new AlertBox().bet(human, pot, "Set bet");
-            if(isBet && pot.getValue() == 0) {
-                new AlertBox().displayInfo("You have to bet some money!");
-            }
-            if (isBet && pot.getValue() > 0) {
+            if (alertBox.setBet(human, pot, "Set bet")) {
                 new Thread(() -> {
                     rollButton.setDisable(true);
 
@@ -128,8 +127,7 @@ public class MainViewController implements Initializable {
                 firstTurn = false;
             }
         } else {
-            isBet = (human.getMoney().getValue() <= 0 || new AlertBox().bet(human, pot, "Increase or accept stake"));
-            if(isBet) {
+            if(alertBox.increaseBet(human, pot, "Increase or accept stake")) {
                 new Thread( () -> {
                     rollButton.setDisable(true);
 

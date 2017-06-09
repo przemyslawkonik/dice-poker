@@ -15,7 +15,7 @@
                 <Label fx:id="value" prefWidth="40.0" text="0" />
             </children>
         </HBox>
-        <Button onAction="#handleSubmit" text="Submit" />
+        <Button fx:id="submit" onAction="#handleSubmit" text="Submit" />
     </children>
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

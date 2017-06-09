@@ -45,7 +45,29 @@ public class AlertBox {
         return choiceBoxController.getResult();
     }
 
-    public boolean bet(Player player, Pot pot, String message) throws Exception {
+    public boolean setBet(Player player, Pot pot, String message) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/bet.fxml"));
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        BetController betController = loader.getController();
+        betController.setMessage(message);
+        betController.setSlider(player);
+        betController.bindZero();
+
+        stage.showAndWait();
+
+        if(betController.isBet()) {
+            player.getMoney().decrease(betController.getValue());
+            pot.increase(betController.getValue() * 2);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean increaseBet(Player player, Pot pot, String message) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/bet.fxml"));
 
         Stage stage = new Stage();
@@ -60,7 +82,7 @@ public class AlertBox {
 
         if(betController.isBet()) {
             player.getMoney().decrease(betController.getValue());
-            pot.increase(betController.getValue()*2);
+            pot.increase(betController.getValue() * 2);
             return true;
         }
         return false;

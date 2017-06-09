@@ -3,6 +3,7 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
@@ -14,6 +15,9 @@ import model.player.Player;
 public class BetController {
 
     @FXML
+    private Button submit;
+
+    @FXML
     private Slider slider;
 
     @FXML
@@ -22,11 +26,7 @@ public class BetController {
     @FXML
     private Label value;
 
-    private boolean bet;
-
-    public BetController() {
-        bet = false;
-    }
+    private boolean bet = false;
 
     @FXML
     public void handleSubmit(ActionEvent event) {
@@ -40,8 +40,8 @@ public class BetController {
     }
 
     public void setSlider(Player player) {
-        slider.setMax(player.getMoney().getValue());
         slider.setValue(0);
+        slider.setMax(player.getMoney().getValue());
 
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             slider.setValue(newValue.intValue());
@@ -49,11 +49,15 @@ public class BetController {
         });
     }
 
-    public boolean isBet() {
-        return bet;
-    }
-
     public int getValue() {
         return Integer.parseInt(value.getText());
+    }
+
+    public void bindZero() {
+        submit.disableProperty().bind(slider.valueProperty().isEqualTo(0));
+    }
+
+    public boolean isBet() {
+        return bet;
     }
 }
