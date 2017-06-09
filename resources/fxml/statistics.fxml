@@ -4,11 +4,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox stylesheets="/stylesheets/statistics.css" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticsController">
+<HBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticsController">
    <children>
       <TitledPane animated="false" contentDisplay="CENTER" text="Statistics" HBox.hgrow="ALWAYS">
          <content>
-            <GridPane fx:id="grid">
+            <GridPane fx:id="gridStats">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -22,9 +22,9 @@
                   <Label text="Won:" />
                   <Label text="Lost:" GridPane.rowIndex="1" />
                   <Label text="Draw:" GridPane.rowIndex="2" />
-                  <Label fx:id="won" text="0" GridPane.columnIndex="1" />
-                  <Label fx:id="lost" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="draw" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="wonStats" text="0" GridPane.columnIndex="1" />
+                  <Label fx:id="lostStats" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="drawStats" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </content>

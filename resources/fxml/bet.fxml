@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BetController">
+<VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" spacing="20.0" stylesheets="/stylesheets/popUpWindow.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BetController">
     <children>
         <Label fx:id="message" text="Text" />
-        <HBox alignment="CENTER">
+        <HBox alignment="CENTER" spacing="5.0">
             <children>
+            <Region prefWidth="40.0" />
                 <Slider fx:id="slider" />
-                <Label fx:id="value" text="0" />
+                <Label fx:id="value" prefWidth="40.0" text="0" />
             </children>
         </HBox>
         <Button onAction="#handleSubmit" text="Submit" />

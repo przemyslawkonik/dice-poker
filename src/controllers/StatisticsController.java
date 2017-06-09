@@ -14,13 +14,13 @@ import java.util.ResourceBundle;
 public class StatisticsController implements Initializable {
 
     @FXML
-    private Label lost;
+    private Label lostStats;
 
     @FXML
-    private Label won;
+    private Label wonStats;
 
     @FXML
-    private Label draw;
+    private Label drawStats;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -28,8 +28,8 @@ public class StatisticsController implements Initializable {
     }
 
     public void bind(Statistics statistics) {
-        won.textProperty().bind(statistics.wonProperty().asString());
-        lost.textProperty().bind(statistics.lostProperty().asString());
-        draw.textProperty().bind(statistics.drawProperty().asString());
+        wonStats.textProperty().bind(statistics.wonProperty().asString());
+        lostStats.textProperty().bind(statistics.lostProperty().asString());
+        drawStats.textProperty().bind(statistics.drawProperty().asString());
     }
 }

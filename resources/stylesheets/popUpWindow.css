@@ -1,0 +1,21 @@
+.root {
+    -fx-background-color: #383838;
+}
+
+.button {
+    -fx-background-color: #AB4642;
+    -fx-text-fill: black;
+}
+
+.button:hover {
+    -fx-background-color: #AB4650;
+    -fx-text-fill: black;
+}
+
+.label {
+    -fx-text-fill: black;
+}
+
+#value {
+    -fx-text-fill: gold;
+}

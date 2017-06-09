@@ -20,4 +20,28 @@
     -fx-text-fill: black;
 }
 
+#pot, #money {
+    -fx-text-fill: gold;
+}
+
+#combination {
+    -fx-text-fill: aqua;
+}
+
+#Win, #wonStats {
+    -fx-text-fill: green;
+}
+
+#Lost, #lostStats {
+    -fx-text-fill: red;
+}
+
+#Draw, #drawStats {
+    -fx-text-fill: blue;
+}
+
+#gridStats {
+    -fx-background-color: #383838;
+}
+
 
