@@ -1,5 +1,6 @@
 package model.game;
 
+import javafx.application.Platform;
 import javafx.scene.control.ToggleButton;
 import model.dice.State;
 import model.player.Player;
@@ -12,21 +13,25 @@ import java.util.List;
 public class Game {
 
     public void firstTurn(Player player) {
-        player.getDiceBox().rollAll();
-        player.getDiceBox().setStateAll(State.UNMARKED);
-        player.getArrangement().calculate();
-        player.getArrangement().markDicesInCombination();
+        Platform.runLater( () -> {
+            player.getDiceBox().rollAll();
+            player.getDiceBox().setStateAll(State.UNMARKED);
+            player.getArrangement().calculate();
+            player.getArrangement().markDicesInCombination();
+        });
     }
 
     public void secondTurn(Player player, List<ToggleButton> dices) {
-        for(int i=0; i<dices.size(); i++) {
-            if(dices.get(i).isSelected()) {
-                player.getDiceBox().getDice(i).roll();
+        Platform.runLater( () -> {
+            for(int i=0; i<dices.size(); i++) {
+                if(dices.get(i).isSelected()) {
+                    player.getDiceBox().getDice(i).roll();
+                }
             }
-        }
-        player.getDiceBox().setStateAll(State.UNMARKED);
-        player.getArrangement().calculate();
-        player.getArrangement().markDicesInCombination();
+            player.getDiceBox().setStateAll(State.UNMARKED);
+            player.getArrangement().calculate();
+            player.getArrangement().markDicesInCombination();
+        });
     }
 
     public Result calculateResult(Player human, Player computer) {

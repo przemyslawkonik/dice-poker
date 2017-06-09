@@ -68,6 +68,9 @@ public class AlertBox {
     }
 
     public boolean increaseBet(Player player, Pot pot, String message) throws Exception{
+        if(player.getMoney().getValue() <= 0) {
+            return true;
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/bet.fxml"));
 
         Stage stage = new Stage();

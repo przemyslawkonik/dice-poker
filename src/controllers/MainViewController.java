@@ -66,26 +66,18 @@ public class MainViewController implements Initializable {
     private boolean firstTurn;
 
     public MainViewController() {
-        pot = new Pot();
+        human = new Player(new DiceBox(5), new Arrangement(), new Money(500));
+        computer = new Player(new DiceBox(5), new Arrangement(), new Money(0));
 
+        game = new Game();
+        pot = new Pot();
+        statistics = new Statistics();
         firstTurn = true;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        human = new Player(new DiceBox(5), new Arrangement(), new Money(1000));
-        humanDicesController.bind(human.getDiceBox());
-
-        computer = new Player(new DiceBox(5), new Arrangement(), new Money(1000));
-        computerDicesController.bind(computer.getDiceBox());
-
-        statistics = new Statistics();
-        statisticsController.bind(statistics);
-
-        game = new Game(/*human, computer, pot*/);
-
         initBindings();
-
         prepareView();
     }
 
@@ -94,28 +86,23 @@ public class MainViewController implements Initializable {
 
         AlertBox alertBox = new AlertBox();
 
-        if(firstTurn) {
+        if (firstTurn) {
             prepareView();
+
             if (alertBox.setBet(human, pot, "Set bet")) {
                 new Thread(() -> {
                     rollButton.setDisable(true);
-
+                    humanDicesController.setDisableAll(true);
                     Pause.run(progressBar);
 
-                    Platform.runLater(() -> {
-                        game.firstTurn(human);
-                    });
+                    game.firstTurn(human);
 
-                    humanDicesController.setDisableAll(true);
                     humanDicesController.setVisibleAll(true);
                     humanCombination.setVisible(true);
 
                     Pause.run(progressBar);
 
-                    Platform.runLater(() -> {
-                        game.firstTurn(computer);
-                        rollButton.setText("Reroll");
-                    });
+                    game.firstTurn(computer);
 
                     computerDicesController.setVisibleAll(true);
                     computerCombination.setVisible(true);
@@ -127,54 +114,37 @@ public class MainViewController implements Initializable {
                 firstTurn = false;
             }
         } else {
+
             if(alertBox.increaseBet(human, pot, "Increase or accept stake")) {
                 new Thread( () -> {
                     rollButton.setDisable(true);
-
+                    humanDicesController.setDisableAll(true);
                     humanCombination.setVisible(false);
                     humanDicesController.setVisibleSelected(false);
-                    humanDicesController.setDisableAll(true);
-                    human.getDiceBox().setStateAll(State.UNMARKED);
 
                     Pause.run(progressBar);
 
-                    Platform.runLater(() -> {
-                        game.secondTurn(human, humanDicesController.getDices());
+                    game.secondTurn(human, humanDicesController.getDices());
 
-                        humanDicesController.setVisibleAll(true);
-                        humanCombination.setVisible(true);
-                        humanDicesController.setSelectedAll(false);
-                    });
+                    humanDicesController.setVisibleAll(true);
+                    humanCombination.setVisible(true);
+                    humanDicesController.setSelectedAll(false);
 
                     new ComputerAI().run(computer, human, computerDicesController.getDices());
 
                     computerCombination.setVisible(false);
                     computerDicesController.setVisibleSelected(false);
-                    computer.getDiceBox().setStateAll(State.UNMARKED);
 
                     Pause.run(progressBar);
 
-                    Platform.runLater(() -> {
-                        game.secondTurn(computer, computerDicesController.getDices());
+                    game.secondTurn(computer, computerDicesController.getDices());
 
-                        computerDicesController.setVisibleAll(true);
-                        computerCombination.setVisible(true);
-                        computerDicesController.setSelectedAll(false);
-
-                        rollButton.setText("Roll");
-                    });
+                    computerDicesController.setVisibleAll(true);
+                    computerCombination.setVisible(true);
+                    computerDicesController.setSelectedAll(false);
 
                     rollButton.setDisable(false);
-
-                    //rezultat
-                    Platform.runLater(() -> {
-                        Result result = game.calculateResult(human, computer);
-                        game.calculateMoneyResult(human, pot, result);
-                        statistics.add(result);
-                        displayResult(result);
-                        checkIfEnd();
-                    });
-
+                    gameSummary();
                 }).start();
 
                 firstTurn = true;
@@ -193,8 +163,16 @@ public class MainViewController implements Initializable {
         progressBar.setVisible(false);
 
         resultLabel.setVisible(false);
+    }
 
-        isBet = false;
+    private void gameSummary() {
+        Platform.runLater(() -> {
+            Result result = game.calculateResult(human, computer);
+            game.calculateMoneyResult(human, pot, result);
+            statistics.add(result);
+            displayResult(result);
+            checkIfEnd();
+        });
     }
 
     private void checkIfEnd() {
@@ -206,7 +184,7 @@ public class MainViewController implements Initializable {
             }
             if(choice) {
                 prepareView();
-                human.getMoney().setValue(1000);
+                human.getMoney().setValue(500);
             } else {
                 System.exit(0);
             }
@@ -216,9 +194,13 @@ public class MainViewController implements Initializable {
     private void initBindings() {
         potLabel.textProperty().bind(pot.valueProperty().asString());
         moneyLabel.textProperty().bind(human.getMoney().valueProperty().asString());
+        statisticsController.bind(statistics);
 
         computerCombination.textProperty().bind(computer.getArrangement().combinationProperty().asString());
+        computerDicesController.bind(computer.getDiceBox());
+
         humanCombination.textProperty().bind(human.getArrangement().combinationProperty().asString());
+        humanDicesController.bind(human.getDiceBox());
     }
 
     private void displayResult(Result result) {
