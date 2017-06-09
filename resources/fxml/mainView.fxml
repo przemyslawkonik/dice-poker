@@ -16,8 +16,8 @@
                      <fx:include fx:id="computerDices" source="dices.fxml" />
                      <StackPane>
                          <children>
-                             <fx:include fx:id="progressBar" source="progressBar.fxml" />
-                             <fx:include fx:id="result" source="result.fxml" />
+                             <ProgressBar fx:id="progressBar" prefWidth="300.0" progress="0.0" />
+                             <Label fx:id="resultLabel" text="Result" />
                          </children>
                      </StackPane>
                      <fx:include fx:id="humanDices" source="dices.fxml" />

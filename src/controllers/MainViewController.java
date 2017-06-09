@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import model.bet.Bet;
 import model.combination.Arrangement;
 import model.dice.DiceBox;
@@ -17,6 +18,7 @@ import model.player.ComputerAI;
 import model.player.Player;
 import model.pot.Pot;
 import tools.AlertBox;
+import tools.Pause;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +30,13 @@ import java.util.ResourceBundle;
 public class MainViewController implements Initializable {
 
     @FXML
+    private ProgressBar progressBar;
+
+    @FXML
     private Button rollButton;
+
+    @FXML
+    private Label resultLabel;
 
     @FXML
     private Label potLabel;
@@ -49,13 +57,7 @@ public class MainViewController implements Initializable {
     private DicesController humanDicesController;
 
     @FXML
-    private ProgressBarController progressBarController;
-
-    @FXML
     private StatisticsController statisticsController;
-
-    @FXML
-    private ResultController resultController;
 
     private Player human;
     private Player computer;
@@ -83,7 +85,6 @@ public class MainViewController implements Initializable {
         statisticsController.bind(statistics);
 
         game = new Game(/*human, computer, pot*/);
-        resultController.bind(game);
 
         prepareView();
     }
@@ -101,7 +102,7 @@ public class MainViewController implements Initializable {
                 new Thread(() -> {
                     rollButton.setDisable(true);
 
-                    progressBarController.run();
+                    Pause.run(progressBar);
 
                     Platform.runLater(() -> {
                         game.firstTurn(human);
@@ -111,7 +112,7 @@ public class MainViewController implements Initializable {
                     humanDicesController.setVisibleAll(true);
                     humanCombination.setVisible(true);
 
-                    progressBarController.run();
+                    Pause.run(progressBar);
 
                     Platform.runLater(() -> {
                         game.firstTurn(computer);
@@ -138,7 +139,7 @@ public class MainViewController implements Initializable {
                     humanDicesController.setDisableAll(true);
                     human.getDiceBox().setStateAll(State.UNMARKED);
 
-                    progressBarController.run();
+                    Pause.run(progressBar);
 
                     Platform.runLater(() -> {
                         game.secondTurn(human, humanDicesController.getDices());
@@ -154,7 +155,7 @@ public class MainViewController implements Initializable {
                     computerDicesController.setVisibleSelected(false);
                     computer.getDiceBox().setStateAll(State.UNMARKED);
 
-                    progressBarController.run();
+                    Pause.run(progressBar);
 
                     Platform.runLater(() -> {
                         game.secondTurn(computer, computerDicesController.getDices());
@@ -175,7 +176,7 @@ public class MainViewController implements Initializable {
                         game.moneyResult(human, pot, result);
                         pot.setValue(0);
                         statistics.add(result);
-                        resultController.setVisible(true);
+                        resultLabel.setVisible(true);
                         checkIfEnd();
                     });
 
@@ -194,9 +195,9 @@ public class MainViewController implements Initializable {
         computerDicesController.setVisibleAll(false);
         computerDicesController.setDisableAll(true);
 
-        progressBarController.setVisible(false);
+        progressBar.setVisible(false);
 
-        resultController.setVisible(false);
+        resultLabel.setVisible(false);
 
         isBet = false;
     }
@@ -218,10 +219,13 @@ public class MainViewController implements Initializable {
     }
 
     private void initBindings() {
-        this.potLabel.textProperty().bind(pot.valueProperty().asString());
-        this.moneyLabel.textProperty().bind(human.getMoney().valueProperty().asString());
+        potLabel.textProperty().bind(pot.valueProperty().asString());
+        moneyLabel.textProperty().bind(human.getMoney().valueProperty().asString());
 
         computerCombination.textProperty().bind(computer.getArrangement().combinationProperty().asString());
         humanCombination.textProperty().bind(human.getArrangement().combinationProperty().asString());
+
+        resultLabel.textProperty().bind(game.resultProperty().asString());
+        resultLabel.idProperty().bind(game.resultProperty().asString());
     }
 }
