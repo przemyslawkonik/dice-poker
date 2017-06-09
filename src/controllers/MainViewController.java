@@ -175,7 +175,7 @@ public class MainViewController implements Initializable {
                         game.moneyResult(human, pot, result);
                         pot.setValue(0);
                         statistics.add(result);
-                        resultLabel.setVisible(true);
+                        displayResult(result);
                         checkIfEnd();
                     });
 
@@ -224,7 +224,25 @@ public class MainViewController implements Initializable {
         computerCombination.textProperty().bind(computer.getArrangement().combinationProperty().asString());
         humanCombination.textProperty().bind(human.getArrangement().combinationProperty().asString());
 
-        resultLabel.textProperty().bind(game.resultProperty().asString());
+        //resultLabel.textProperty().bind(game.resultProperty().asString());
         resultLabel.idProperty().bind(game.resultProperty().asString());
+    }
+
+    private void displayResult(Result result) {
+        switch (result) {
+            case WIN: {
+                resultLabel.setText("You have won!");
+                break;
+            }
+            case LOST: {
+                resultLabel.setText("You have lost!");
+                break;
+            }
+            case DRAW: {
+                resultLabel.setText("The match result in a draw!");
+                break;
+            }
+        }
+        resultLabel.setVisible(true);
     }
 }

@@ -18,7 +18,7 @@ public class Game {
     private ObjectProperty<Result> result;
 
     public Game() {
-        result = new SimpleObjectProperty<>(Result.NO_RESULT);
+        result = new SimpleObjectProperty<>();
     }
 
     public void firstTurn(Player player) {

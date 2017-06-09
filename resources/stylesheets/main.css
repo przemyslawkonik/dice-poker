@@ -30,15 +30,15 @@
     -fx-text-fill: aqua;
 }
 
-#Win, #wonStats {
+#win, #wonStats {
     -fx-text-fill: green;
 }
 
-#Lost, #lostStats {
+#lost, #lostStats {
     -fx-text-fill: red;
 }
 
-#Draw, #drawStats {
+#draw, #drawStats {
     -fx-text-fill: blue;
 }
 

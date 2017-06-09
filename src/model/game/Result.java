@@ -5,10 +5,9 @@ package model.game;
  */
 public enum Result {
 
-    NO_RESULT("Empty"),
-    WIN("You have won!"),
-    LOST("You have lost!"),
-    DRAW("The match result is a draw!");
+    WIN("win"),
+    LOST("lost"),
+    DRAW("draw");
 
     private String result;
 
