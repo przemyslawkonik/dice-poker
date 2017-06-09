@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane stylesheets="/stylesheets/main.css" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" stylesheets="/stylesheets/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
     <center>
       <HBox maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
@@ -16,8 +16,8 @@
                      <fx:include fx:id="computerDices" source="dices.fxml" />
                      <StackPane>
                          <children>
-                             <fx:include fx:id="progressBar" source="progressBar.fxml"/>
-                             <fx:include source="result.fxml" fx:id="result"/>
+                             <fx:include fx:id="progressBar" source="progressBar.fxml" />
+                             <fx:include fx:id="result" source="result.fxml" />
                          </children>
                      </StackPane>
                      <fx:include fx:id="humanDices" source="dices.fxml" />
@@ -55,7 +55,7 @@
                <children>
                    <fx:include fx:id="pot" source="pot.fxml" />
                    <fx:include fx:id="humanMoney" source="money.fxml" />
-                  <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" opacity="1" prefWidth="60.0" text="Roll" />
+                  <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" opacity="1" prefHeight="30.0" prefWidth="80.0" text="Roll" />
                </children>
                <padding>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

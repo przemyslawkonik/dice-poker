@@ -10,14 +10,16 @@
     -fx-border-color: #585858;
 }
 
-.button {
+#rollButton {
     -fx-background-color: #AB4642;
+    -fx-background-radius: 10;
     -fx-text-fill: black;
 }
 
-.button:hover {
-    -fx-background-color: #AB4650;
-    -fx-text-fill: black;
+#rollButton:hover {
+    -fx-background-color: #AB4642;
+    -fx-background-radius: 10;
+    -fx-text-fill: gold;
 }
 
 #pot, #money {
