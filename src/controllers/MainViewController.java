@@ -19,13 +19,12 @@ import model.player.Player;
 import tools.AlertBox;
 import tools.Pause;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 /**
  * Created by Przemysław Konik on 2017-06-06.
@@ -232,13 +231,22 @@ public class MainViewController implements Initializable {
 
     private void setManualDesc() {
         List<String> textList = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("resources/text/manual.txt"))) {
-            while (scanner.hasNext()) {
-                textList.add(scanner.nextLine());
+
+        try {
+            URL url = getClass().getResource("/text/manual.txt");
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line;
+
+            while ((line = in.readLine()) != null) {
+                textList.add(line);
             }
-        } catch (IOException e) {
+            in.close();
+        }catch(MalformedURLException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
             e.printStackTrace();
         }
+
         String text = "";
         for(String s : textList) {
             text += s+"\n";
