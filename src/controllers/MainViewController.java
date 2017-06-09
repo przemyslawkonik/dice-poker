@@ -9,7 +9,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import model.combination.Arrangement;
 import model.dice.DiceBox;
-import model.dice.State;
 import model.game.Game;
 import model.game.Pot;
 import model.game.Result;
@@ -19,7 +18,11 @@ import model.player.Money;
 import model.player.Player;
 import tools.AlertBox;
 import tools.Pause;
+import tools.TextReader;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -81,6 +84,7 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        manualText.setText(TextReader.read("manual"));
         initBindings();
         prepareView();
     }
