@@ -47,6 +47,9 @@ public class Arrangement {
         return calculateTotalCombinationWorth();
     }
 
+    public int getCombinationWorth() { return combination.getValue().getWorth();
+    }
+
     public ObjectProperty<Combination> combinationProperty() {
         return combination;
     }

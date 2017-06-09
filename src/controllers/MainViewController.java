@@ -128,7 +128,7 @@ public class MainViewController implements Initializable {
                 firstTurn = false;
             }
         } else {
-            isBet = (human.getMoney().getValue() <= 0 || new AlertBox().bet(human, pot, "Increase or accept bet"));
+            isBet = (human.getMoney().getValue() <= 0 || new AlertBox().bet(human, pot, "Increase or accept stake"));
             if(isBet) {
                 new Thread( () -> {
                     rollButton.setDisable(true);
@@ -171,9 +171,7 @@ public class MainViewController implements Initializable {
                     //rezultat
                     Platform.runLater(() -> {
                         Result result = game.calculateResult(human, computer);
-                        //game.displayResult(result);
-                        game.moneyResult(human, pot, result);
-                        pot.setValue(0);
+                        game.calculateMoneyResult(human, pot, result);
                         statistics.add(result);
                         displayResult(result);
                         checkIfEnd();
@@ -223,22 +221,22 @@ public class MainViewController implements Initializable {
 
         computerCombination.textProperty().bind(computer.getArrangement().combinationProperty().asString());
         humanCombination.textProperty().bind(human.getArrangement().combinationProperty().asString());
-
-        //resultLabel.textProperty().bind(game.resultProperty().asString());
-        resultLabel.idProperty().bind(game.resultProperty().asString());
     }
 
     private void displayResult(Result result) {
         switch (result) {
             case WIN: {
+                resultLabel.setId("win");
                 resultLabel.setText("You have won!");
                 break;
             }
             case LOST: {
+                resultLabel.setId("lost");
                 resultLabel.setText("You have lost!");
                 break;
             }
             case DRAW: {
+                resultLabel.setId("draw");
                 resultLabel.setText("The match result in a draw!");
                 break;
             }
