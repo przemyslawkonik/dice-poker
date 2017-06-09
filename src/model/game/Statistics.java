@@ -2,6 +2,18 @@ package model.game;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.TextArea;
+import org.omg.CORBA.portable.*;
+import org.omg.CORBA.portable.OutputStream;
+
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Przemysław Konik on 2017-06-08.
@@ -13,9 +25,9 @@ public class Statistics {
     private IntegerProperty draw;
 
     public Statistics() {
-        this.won = new SimpleIntegerProperty(0);
-        this.lost = new SimpleIntegerProperty(0);
-        this.draw = new SimpleIntegerProperty(0);
+        this.won = new SimpleIntegerProperty();
+        this.lost = new SimpleIntegerProperty();
+        this.draw = new SimpleIntegerProperty();
     }
 
     public void increaseWon() {

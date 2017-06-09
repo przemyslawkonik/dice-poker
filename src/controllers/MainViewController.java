@@ -233,7 +233,7 @@ public class MainViewController implements Initializable {
         List<String> textList = new ArrayList<>();
 
         try {
-            URL url = getClass().getResource("/text/manual.txt");
+            URL url = getClass().getResource("/manual.txt");
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
             String line;
 
