@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import model.bet.Bet;
 import model.combination.Arrangement;
 import model.dice.DiceBox;
 import model.dice.State;
@@ -79,12 +78,12 @@ public class MainViewController implements Initializable {
         computer = new Player(new DiceBox(5), new Arrangement(), new Money(1000));
         computerDicesController.bind(computer.getDiceBox());
 
-        initBindings();
-
         statistics = new Statistics();
         statisticsController.bind(statistics);
 
         game = new Game(/*human, computer, pot*/);
+
+        initBindings();
 
         prepareView();
     }
@@ -94,7 +93,7 @@ public class MainViewController implements Initializable {
 
         if(firstTurn) {
             prepareView();
-            isBet = new Bet().set(human, pot, "Set bet");
+            isBet = new AlertBox().bet(human, pot, "Set bet");
             if(isBet && pot.getValue() == 0) {
                 new AlertBox().displayInfo("You have to bet some money!");
             }
@@ -129,7 +128,7 @@ public class MainViewController implements Initializable {
                 firstTurn = false;
             }
         } else {
-            isBet = (human.getMoney().getValue() <= 0 || new Bet().set(human, pot, "Increase or accept bet"));
+            isBet = (human.getMoney().getValue() <= 0 || new AlertBox().bet(human, pot, "Increase or accept bet"));
             if(isBet) {
                 new Thread( () -> {
                     rollButton.setDisable(true);

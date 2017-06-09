@@ -243,9 +243,8 @@ public class Arrangement {
                 break;
             }
             case THREE_OF_A_KIND: {
-                int key1 = findKey(3, map);
-                int key2 = findKey(2, map);
-                combinationValue = key1*key2*combination.getValue().getWorth();
+                int key = findKey(3, map);
+                combinationValue = key*combination.getValue().getWorth();
                 break;
             }
             case TWO_PAIR: {
