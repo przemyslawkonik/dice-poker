@@ -21,13 +21,13 @@ public class ComputerAI {
             for(ToggleButton t : computerDices) {
                 t.setSelected(true);
             }
-        } else if(computer.getArrangement().getCombinationValue() > human.getArrangement().getCombinationValue()){
+        } else if(computer.getArrangement().getTotalCombinationWorth() > human.getArrangement().getTotalCombinationWorth()){
             for(int i=0; i<computerDices.size(); i++) {
                 if(computer.getDiceBox().getDice(i).getState().equals(State.UNMARKED)) {
                     computerDices.get(i).setSelected(true);
                 }
             }
-        } else if(computer.getArrangement().getCombinationValue() < human.getArrangement().getCombinationValue()) {
+        } else if(computer.getArrangement().getTotalCombinationWorth() < human.getArrangement().getTotalCombinationWorth()) {
             for(int i=0; i<computerDices.size(); i++) {
                 if(computer.getDiceBox().getDice(i).getState().equals(State.UNMARKED)) {
                     computerDices.get(i).setSelected(true);

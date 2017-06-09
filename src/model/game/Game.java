@@ -16,20 +16,8 @@ public class Game {
 
     private ObjectProperty<Result> result;
 
-    /*
-    private Pot pot;
-    private Player human;
-    private Player computer;
-    */
-
-    public Game(/*Player human, Player computer, Pot pot*/) {
-
+    public Game() {
         result = new SimpleObjectProperty<>(Result.NO_RESULT);
-        /*
-        this.human = human;
-        this.computer = computer;
-        this.pot = pot;
-        */
     }
 
     public void firstTurn(Player player) {
@@ -52,9 +40,9 @@ public class Game {
         } else if (human.getArrangement().getCombination().getWorth() < computer.getArrangement().getCombination().getWorth()) {
             result.set(Result.LOST);
         } else {
-            if(human.getArrangement().getCombinationValue() > computer.getArrangement().getCombinationValue()) {
+            if(human.getArrangement().getTotalCombinationWorth() > computer.getArrangement().getTotalCombinationWorth()) {
                 result.set(Result.WIN);
-            } else if(human.getArrangement().getCombinationValue() < computer.getArrangement().getCombinationValue()) {
+            } else if(human.getArrangement().getTotalCombinationWorth() < computer.getArrangement().getTotalCombinationWorth()) {
                 result.set(Result.LOST);
             } else {
                 result.set(Result.DRAW);

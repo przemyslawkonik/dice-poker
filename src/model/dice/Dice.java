@@ -18,17 +18,13 @@ public class Dice {
 
     public Dice() {
         maxValue = 6;
-        initVariables();
+        value = new SimpleIntegerProperty(0);
+        state = new SimpleObjectProperty<>(State.UNMARKED);
     }
 
     public int roll() {
         value.set(new Random().nextInt(maxValue)+1);
         return value.getValue();
-    }
-
-    private void initVariables() {
-        value = new SimpleIntegerProperty(0);
-        state = new SimpleObjectProperty<>(State.UNMARKED);
     }
 
     public int getValue() {
