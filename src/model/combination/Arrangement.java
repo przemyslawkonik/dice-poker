@@ -216,9 +216,6 @@ public class Arrangement {
                 int key = Finder.findKey(2, map);
                 return key*combination.getValue().getWorth();
             }
-            case NOTHING: {
-                return combination.getValue().getWorth();
-            }
         }
         return 0;
     }
