@@ -41,7 +41,7 @@
    <left>
       <VBox alignment="CENTER_LEFT" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="manualText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+            <TextArea fx:id="manualText" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>

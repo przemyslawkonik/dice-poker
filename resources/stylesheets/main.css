@@ -10,6 +10,16 @@
     -fx-border-color: #585858;
 }
 
+#manualText .content {
+    -fx-background-color: #383838;
+    -fx-border-color: #383838;
+}
+
+#manualText {
+    -fx-text-fill: black;
+    -fx-background-color: #383838;
+}
+
 #rollButton {
     -fx-background-color: #AB4642;
     -fx-background-radius: 10;
