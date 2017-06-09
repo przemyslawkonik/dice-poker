@@ -6,12 +6,12 @@
 }
 
 #marked:hover {
-    -fx-background-color: sandybrown;
+    -fx-background-color: coral;
     -fx-font-weight: bolder;
 }
 
 #marked:selected {
-    -fx-background-color: sandybrown;
+    -fx-background-color: coral;
     -fx-font-weight: bolder;
 }
 
@@ -22,12 +22,12 @@
 }
 
 #unmarked:hover {
-    -fx-background-color: sandybrown;
+    -fx-background-color: coral;
     -fx-font-weight: bolder;
 }
 
 #unmarked:selected {
-    -fx-background-color: sandybrown;
+    -fx-background-color: coral;
     -fx-font-weight: bolder;
 }
 
