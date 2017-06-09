@@ -1,0 +1,17 @@
+Manual:
+
+After first roll you can select dice/dices and re roll them. When you run out of money, the game ends.
+
+
+
+Available combinations starting with the highest:
+
+Straight flush
+Four of a kind
+Full house
+Big straight
+Small straight
+Three of a kind
+Two pairs
+One pair
+Nothing
