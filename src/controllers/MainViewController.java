@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 import model.combination.Arrangement;
 import model.dice.DiceBox;
 import model.dice.State;
@@ -27,6 +28,9 @@ import java.util.ResourceBundle;
  * Created by Przemysław Konik on 2017-06-06.
  */
 public class MainViewController implements Initializable {
+
+    @FXML
+    private TextArea manualText;
 
     @FXML
     private ProgressBar progressBar;
