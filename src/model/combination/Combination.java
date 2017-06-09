@@ -6,7 +6,7 @@ package model.combination;
 public enum Combination {
 
     STRAIGHT_FLUSH("Straight flush", 8),
-    QUADS("Quads", 7),
+    FOUR_OF_A_KIND("Four of a kind", 7),
     FULL_HOUSE("Full house", 6),
     BIG_STRAIGHT("Big straight", 5),
     SMALL_STRAIGHT("Small straight", 4),

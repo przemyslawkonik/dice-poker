@@ -70,7 +70,7 @@ public class Arrangement {
         else if (isFullHouse(map))
             combination.setValue(Combination.FULL_HOUSE);
         else if (isQuads(map))
-            combination.setValue(Combination.QUADS);
+            combination.setValue(Combination.FOUR_OF_A_KIND);
         else if (isStraightFlush(map))
             combination.setValue(Combination.STRAIGHT_FLUSH);
         else
@@ -140,7 +140,7 @@ public class Arrangement {
                 }
                 break;
             }
-            case QUADS: {
+            case FOUR_OF_A_KIND: {
                 int key = Finder.findKey(4, map);
                 for (Dice d : dices) {
                     if (d.getValue() == key) {
@@ -200,7 +200,7 @@ public class Arrangement {
             case SMALL_STRAIGHT: {
                 return combination.getValue().getWorth();
             }
-            case QUADS: {
+            case FOUR_OF_A_KIND: {
                 int key = Finder.findKey(4, map);
                 return key*combination.getValue().getWorth();
             }
