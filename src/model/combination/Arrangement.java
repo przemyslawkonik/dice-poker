@@ -180,9 +180,6 @@ public class Arrangement {
                 }
                 break;
             }
-            //pusty case poniewaz i tak na poczatku ustawiamy zaznaczenie wszystkich kosci na false
-            case NOTHING: {
-            }
         }
     }
 
