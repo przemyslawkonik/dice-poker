@@ -12,7 +12,7 @@
             <Separator orientation="VERTICAL" />
               <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="20.0" BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
                  <children>
-                     <fx:include fx:id="computerCombination" source="combination.fxml" />
+                     <Label fx:id="computerCombination" />
                      <fx:include fx:id="computerDices" source="dices.fxml" />
                      <StackPane>
                          <children>
@@ -21,7 +21,7 @@
                          </children>
                      </StackPane>
                      <fx:include fx:id="humanDices" source="dices.fxml" />
-                     <fx:include fx:id="humanCombination" source="combination.fxml" />
+                     <Label fx:id="humanCombination" />
                  </children>
               </VBox>
             <Separator orientation="VERTICAL" />
@@ -51,10 +51,12 @@
       <VBox>
          <children>
             <Separator prefWidth="200.0" />
-            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                   <fx:include fx:id="pot" source="pot.fxml" />
-                   <fx:include fx:id="humanMoney" source="money.fxml" />
+                   <Label text="Pot:" />
+                   <Label fx:id="potLabel" prefWidth="200.0" text="0" HBox.hgrow="ALWAYS" />
+                   <Label text="Money:" />
+                   <Label fx:id="moneyLabel" prefWidth="200.0" text="0" />
                   <Button fx:id="rollButton" mnemonicParsing="false" onAction="#handleAction" opacity="1" prefHeight="30.0" prefWidth="80.0" text="Roll" />
                </children>
                <padding>

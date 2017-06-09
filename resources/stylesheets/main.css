@@ -22,11 +22,11 @@
     -fx-text-fill: gold;
 }
 
-#pot, #money {
+#potLabel, #moneyLabel {
     -fx-text-fill: gold;
 }
 
-#combination {
+#computerCombination, #humanCombination {
     -fx-text-fill: aqua;
 }
 

@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import model.bet.Bet;
 import model.combination.Arrangement;
 import model.dice.DiceBox;
@@ -30,22 +31,22 @@ public class MainViewController implements Initializable {
     private Button rollButton;
 
     @FXML
+    private Label potLabel;
+
+    @FXML
+    private Label moneyLabel;
+
+    @FXML
+    private Label computerCombination;
+
+    @FXML
+    private Label humanCombination;
+
+    @FXML
     private DicesController computerDicesController;
 
     @FXML
-    private CombinationController computerCombinationController;
-
-    @FXML
     private DicesController humanDicesController;
-
-    @FXML
-    private CombinationController humanCombinationController;
-
-    @FXML
-    private MoneyController humanMoneyController;
-
-    @FXML
-    private PotController potController;
 
     @FXML
     private ProgressBarController progressBarController;
@@ -64,19 +65,19 @@ public class MainViewController implements Initializable {
     private boolean firstTurn = true;
     private boolean isBet = false;
 
+    public MainViewController() {
+        pot = new Pot();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         human = new Player(new DiceBox(5), new Arrangement(), new Money(1000));
         humanDicesController.bind(human.getDiceBox());
-        humanCombinationController.bind(human.getArrangement());
-        humanMoneyController.bind(human.getMoney());
 
         computer = new Player(new DiceBox(5), new Arrangement(), new Money(1000));
         computerDicesController.bind(computer.getDiceBox());
-        computerCombinationController.bind(computer.getArrangement());
 
-        pot = new Pot();
-        potController.bind(pot);
+        initBindings();
 
         statistics = new Statistics();
         statisticsController.bind(statistics);
@@ -108,7 +109,7 @@ public class MainViewController implements Initializable {
 
                     humanDicesController.setDisableAll(true);
                     humanDicesController.setVisibleAll(true);
-                    humanCombinationController.setVisible(true);
+                    humanCombination.setVisible(true);
 
                     progressBarController.run();
 
@@ -118,7 +119,7 @@ public class MainViewController implements Initializable {
                     });
 
                     computerDicesController.setVisibleAll(true);
-                    computerCombinationController.setVisible(true);
+                    computerCombination.setVisible(true);
 
                     humanDicesController.setDisableAll(false);
                     rollButton.setDisable(false);
@@ -132,7 +133,7 @@ public class MainViewController implements Initializable {
                 new Thread( () -> {
                     rollButton.setDisable(true);
 
-                    humanCombinationController.setVisible(false);
+                    humanCombination.setVisible(false);
                     humanDicesController.setVisibleSelected(false);
                     humanDicesController.setDisableAll(true);
                     human.getDiceBox().setStateAll(State.UNMARKED);
@@ -143,13 +144,13 @@ public class MainViewController implements Initializable {
                         game.secondTurn(human, humanDicesController.getDices());
 
                         humanDicesController.setVisibleAll(true);
-                        humanCombinationController.setVisible(true);
+                        humanCombination.setVisible(true);
                         humanDicesController.setSelectedAll(false);
                     });
 
                     new ComputerAI().run(computer, human, computerDicesController.getDices());
 
-                    computerCombinationController.setVisible(false);
+                    computerCombination.setVisible(false);
                     computerDicesController.setVisibleSelected(false);
                     computer.getDiceBox().setStateAll(State.UNMARKED);
 
@@ -159,7 +160,7 @@ public class MainViewController implements Initializable {
                         game.secondTurn(computer, computerDicesController.getDices());
 
                         computerDicesController.setVisibleAll(true);
-                        computerCombinationController.setVisible(true);
+                        computerCombination.setVisible(true);
                         computerDicesController.setSelectedAll(false);
 
                         rollButton.setText("Roll");
@@ -186,10 +187,10 @@ public class MainViewController implements Initializable {
     }
 
     private void prepareView() {
-        humanCombinationController.setVisible(false);
+        humanCombination.setVisible(false);
         humanDicesController.setVisibleAll(false);
 
-        computerCombinationController.setVisible(false);
+        computerCombination.setVisible(false);
         computerDicesController.setVisibleAll(false);
         computerDicesController.setDisableAll(true);
 
@@ -214,5 +215,13 @@ public class MainViewController implements Initializable {
                 System.exit(0);
             }
         }
+    }
+
+    private void initBindings() {
+        this.potLabel.textProperty().bind(pot.valueProperty().asString());
+        this.moneyLabel.textProperty().bind(human.getMoney().valueProperty().asString());
+
+        computerCombination.textProperty().bind(computer.getArrangement().combinationProperty().asString());
+        humanCombination.textProperty().bind(human.getArrangement().combinationProperty().asString());
     }
 }
