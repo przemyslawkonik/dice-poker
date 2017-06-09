@@ -18,14 +18,14 @@ import model.player.Money;
 import model.player.Player;
 import tools.AlertBox;
 import tools.Pause;
-import tools.TextReader;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 /**
  * Created by Przemysław Konik on 2017-06-06.
@@ -84,7 +84,7 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        manualText.setText(TextReader.read("manual"));
+        setManualDesc();
         initBindings();
         prepareView();
     }
@@ -228,5 +228,21 @@ public class MainViewController implements Initializable {
             }
         }
         resultLabel.setVisible(true);
+    }
+
+    private void setManualDesc() {
+        List<String> textList = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new File("resources/text/manual.txt"))) {
+            while (scanner.hasNext()) {
+                textList.add(scanner.nextLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String text = "";
+        for(String s : textList) {
+            text += s+"\n";
+        }
+        manualText.setText(text);
     }
 }
