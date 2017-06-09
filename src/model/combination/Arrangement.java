@@ -80,7 +80,7 @@ public class Arrangement {
             combination.setValue(Combination.NOTHING);
 
         markDices(map);
-        setCombinationValue(map);
+        setTotalCombinationVWorth(map);
         return combination.getValue();
     }
 
@@ -132,7 +132,7 @@ public class Arrangement {
 
 
     private void markDices(Map<Integer, Integer> map) {
-        unMarkDices();
+        diceBox.setStateAll(State.UNMARKED);
         List<Dice> dices = diceBox.getDices();
 
         switch (combination.getValue()) {
@@ -191,12 +191,6 @@ public class Arrangement {
         }
     }
 
-    private void unMarkDices() {
-        for(Dice d : diceBox.getDices()) {
-            d.setState(State.UNMARKED);
-        }
-    }
-
     private int findKey(int value, Map<Integer, Integer> map) {
         Set<Integer> keys = map.keySet();
         for (Integer key : keys) {
@@ -217,7 +211,7 @@ public class Arrangement {
         return k;
     }
 
-    private void setCombinationValue(Map<Integer, Integer> map) {
+    private void setTotalCombinationVWorth(Map<Integer, Integer> map) {
         switch (combination.getValue()) {
             case STRAIGHT_FLUSH: {
                 int key = findKey(5, map);
