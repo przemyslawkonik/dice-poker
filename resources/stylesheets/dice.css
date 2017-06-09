@@ -2,26 +2,32 @@
     -fx-background-color: saddlebrown;
     -fx-border-color: gold;
     -fx-text-fill: gold;
+    -fx-font-weight: bolder;
 }
 
 #marked:hover {
     -fx-background-color: sandybrown;
+    -fx-font-weight: bolder;
 }
 
 #marked:selected {
     -fx-background-color: sandybrown;
+    -fx-font-weight: bolder;
 }
 
 #unmarked {
     -fx-background-color: saddlebrown;
     -fx-text-fill: black;
+    -fx-font-weight: bolder;
 }
 
 #unmarked:hover {
     -fx-background-color: sandybrown;
+    -fx-font-weight: bolder;
 }
 
 #unmarked:selected {
     -fx-background-color: sandybrown;
+    -fx-font-weight: bolder;
 }
 
