@@ -128,7 +128,6 @@ public class MainViewController implements Initializable {
 
                     humanDicesController.setVisibleAll(true);
                     humanCombination.setVisible(true);
-                    humanDicesController.setSelectedAll(false);
 
                     new ComputerAI().run(computer, human, computerDicesController.getDices());
 
@@ -141,7 +140,6 @@ public class MainViewController implements Initializable {
 
                     computerDicesController.setVisibleAll(true);
                     computerCombination.setVisible(true);
-                    computerDicesController.setSelectedAll(false);
 
                     rollButton.setDisable(false);
                     gameSummary();

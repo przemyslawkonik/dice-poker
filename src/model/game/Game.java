@@ -25,8 +25,9 @@ public class Game {
         Platform.runLater( () -> {
             for(int i=0; i<dices.size(); i++) {
                 if(dices.get(i).isSelected()) {
-                    player.getDiceBox().getDice(i).roll();
+                    player.getDiceBox().roll(i);
                 }
+                dices.get(i).setSelected(false);
             }
             player.getDiceBox().setStateAll(State.UNMARKED);
             player.getArrangement().calculate();
