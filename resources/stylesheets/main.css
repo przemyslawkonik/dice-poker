@@ -3,7 +3,11 @@
 }
 
 .label {
-    -fx-text-fill: black;
+    -fx-text-fill: darkgray;
+}
+
+#manualText {
+    -fx-text-fill: #F8F8F8;
 }
 
 .separator .line{
@@ -16,7 +20,7 @@
 }
 
 #manualText {
-    -fx-text-fill: black;
+    -fx-text-fill: darkgray;
     -fx-background-color: #383838;
 }
 
@@ -62,7 +66,7 @@
 }
 
 #titledPaneStats {
-    -fx-text-fill: black;
+    -fx-text-fill: darkgray;
 }
 
 
