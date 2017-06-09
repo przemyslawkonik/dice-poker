@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import model.dice.Dice;
 import model.dice.DiceBox;
 import model.dice.State;
+import tools.Finder;
 
 import java.util.*;
 
@@ -15,17 +16,14 @@ public class Arrangement {
 
     private ObjectProperty<Combination> combination;
     private DiceBox diceBox;
-    private int totalCombinationWorth;
 
     public Arrangement() {
         combination = new SimpleObjectProperty<>(Combination.NOTHING);
-        totalCombinationWorth = combination.getValue().getWorth();
         diceBox = new DiceBox();
     }
 
     public Arrangement(DiceBox diceBox) {
         combination = new SimpleObjectProperty<>(Combination.NOTHING);
-        totalCombinationWorth = combination.get().getWorth();
         this.diceBox = diceBox;
     }
 
@@ -46,11 +44,7 @@ public class Arrangement {
     }
 
     public int getTotalCombinationWorth() {
-        return totalCombinationWorth;
-    }
-
-    public void setTotalCombinationWorth(int totalCombinationWorth) {
-        this.totalCombinationWorth = totalCombinationWorth;
+        return calculateTotalCombinationWorth();
     }
 
     public ObjectProperty<Combination> combinationProperty() {
@@ -79,8 +73,6 @@ public class Arrangement {
         else
             combination.setValue(Combination.NOTHING);
 
-        markDices(map);
-        setTotalCombinationVWorth(map);
         return combination.getValue();
     }
 
@@ -131,8 +123,8 @@ public class Arrangement {
     }
 
 
-    private void markDices(Map<Integer, Integer> map) {
-        diceBox.setStateAll(State.UNMARKED);
+    public void markDicesInCombination() {
+        Map<Integer, Integer> map = sort();
         List<Dice> dices = diceBox.getDices();
 
         switch (combination.getValue()) {
@@ -146,7 +138,7 @@ public class Arrangement {
                 break;
             }
             case QUADS: {
-                int key = findKey(4, map);
+                int key = Finder.findKey(4, map);
                 for (Dice d : dices) {
                     if (d.getValue() == key) {
                         d.setState(State.MARKED);
@@ -155,7 +147,7 @@ public class Arrangement {
                 break;
             }
             case THREE_OF_A_KIND: {
-                int key = findKey(3, map);
+                int key = Finder.findKey(3, map);
                 for (Dice d : dices) {
                     if (d.getValue() == key) {
                         d.setState(State.MARKED);
@@ -168,7 +160,7 @@ public class Arrangement {
                     gdybysmy wyszukali po wartosci 2 to wtedy udaloby sie nam zaznaczyc tylko jedna pare, a potrzebujemy zaznaczyc obie
                     dlatego latwiej wyszukac nie pasujacy klucz i zaznaczyc wszystkie kosci nie pasujace do niego
                 */
-                int key = findKey(1, map);
+                int key = Finder.findKey(1, map);
                 for(Dice d : dices) {
                     if(d.getValue() != key) {
                         d.setState(State.MARKED);
@@ -177,7 +169,7 @@ public class Arrangement {
                 break;
             }
             case ONE_PAIR: {
-                int key = findKey(2, map);
+                int key = Finder.findKey(2, map);
                 for (Dice d : dices) {
                     if (d.getValue() == key) {
                         d.setState(State.MARKED);
@@ -191,71 +183,43 @@ public class Arrangement {
         }
     }
 
-    private int findKey(int value, Map<Integer, Integer> map) {
-        Set<Integer> keys = map.keySet();
-        for (Integer key : keys) {
-            if (map.get(key) == value)
-                return key;
+    private int calculateTotalCombinationWorth() {
+        Map<Integer, Integer> map = sort();
+        switch (combination.getValue()) {
+            case STRAIGHT_FLUSH: {
+                int key = Finder.findKey(5, map);
+                return key*combination.getValue().getWorth();
+            }
+            case FULL_HOUSE: {
+                int key = Finder.findKey(3, map);
+                return key*combination.getValue().getWorth();
+            }
+            case BIG_STRAIGHT: {
+                return combination.getValue().getWorth();
+            }
+            case SMALL_STRAIGHT: {
+                return combination.getValue().getWorth();
+            }
+            case QUADS: {
+                int key = Finder.findKey(4, map);
+                return key*combination.getValue().getWorth();
+            }
+            case THREE_OF_A_KIND: {
+                int key = Finder.findKey(3, map);
+                return key*combination.getValue().getWorth();
+            }
+            case TWO_PAIR: {
+                List<Integer> keys = Finder.findKeys(2, map);
+                return keys.get(0)*keys.get(1)*combination.getValue().getWorth();
+            }
+            case ONE_PAIR: {
+                int key = Finder.findKey(2, map);
+                return key*combination.getValue().getWorth();
+            }
+            case NOTHING: {
+                return combination.getValue().getWorth();
+            }
         }
         return 0;
     }
-
-    private List<Integer> findKeys(int value, Map<Integer, Integer> map) {
-        Set<Integer> keys = map.keySet();
-        List<Integer> k = new ArrayList<>();
-
-        for (Integer key : keys) {
-            if (map.get(key) == value)
-                k.add(key);
-        }
-        return k;
-    }
-
-    private void setTotalCombinationVWorth(Map<Integer, Integer> map) {
-        switch (combination.getValue()) {
-            case STRAIGHT_FLUSH: {
-                int key = findKey(5, map);
-                totalCombinationWorth = key*combination.getValue().getWorth();
-                break;
-            }
-            case FULL_HOUSE: {
-                int key = findKey(3, map);
-                totalCombinationWorth = key*combination.getValue().getWorth();
-                break;
-            }
-            case BIG_STRAIGHT: {
-                totalCombinationWorth = combination.getValue().getWorth();
-                break;
-            }
-            case SMALL_STRAIGHT: {
-                totalCombinationWorth = combination.getValue().getWorth();
-                break;
-            }
-            case QUADS: {
-                int key = findKey(4, map);
-                totalCombinationWorth = key*combination.getValue().getWorth();
-                break;
-            }
-            case THREE_OF_A_KIND: {
-                int key = findKey(3, map);
-                totalCombinationWorth = key*combination.getValue().getWorth();
-                break;
-            }
-            case TWO_PAIR: {
-                List<Integer> keys = findKeys(2, map);
-                totalCombinationWorth = keys.get(0)*keys.get(1)*combination.getValue().getWorth();
-                break;
-            }
-            case ONE_PAIR: {
-                int key = findKey(2, map);
-                totalCombinationWorth = key*combination.getValue().getWorth();
-                break;
-            }
-            case NOTHING: {
-                totalCombinationWorth = combination.getValue().getWorth();
-                break;
-            }
-        }
-    }
-
 }

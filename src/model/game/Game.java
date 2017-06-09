@@ -3,6 +3,7 @@ package model.game;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ToggleButton;
+import model.dice.State;
 import model.player.Player;
 import tools.AlertBox;
 
@@ -22,7 +23,9 @@ public class Game {
 
     public void firstTurn(Player player) {
         player.getDiceBox().rollAll();
+        player.getDiceBox().setStateAll(State.UNMARKED);
         player.getArrangement().calculate();
+        player.getArrangement().markDicesInCombination();
     }
 
     public void secondTurn(Player player, List<ToggleButton> dices) {
@@ -31,7 +34,9 @@ public class Game {
                 player.getDiceBox().getDice(i).roll();
             }
         }
+        player.getDiceBox().setStateAll(State.UNMARKED);
         player.getArrangement().calculate();
+        player.getArrangement().markDicesInCombination();
     }
 
     public Result calculateResult(Player human, Player computer) {
