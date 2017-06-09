@@ -41,7 +41,6 @@ public class AlertBox {
 
         stage.showAndWait();
 
-        boolean result = choiceBoxController.getResult();
-        return result;
+        return choiceBoxController.getResult();
     }
 }
