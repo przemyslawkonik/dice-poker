@@ -4,7 +4,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ToggleButton;
 import model.player.Player;
-import model.pot.Pot;
 import tools.AlertBox;
 
 import java.io.IOException;

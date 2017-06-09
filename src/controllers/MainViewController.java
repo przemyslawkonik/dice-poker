@@ -10,12 +10,12 @@ import model.combination.Arrangement;
 import model.dice.DiceBox;
 import model.dice.State;
 import model.game.Game;
+import model.game.Pot;
 import model.game.Result;
 import model.game.Statistics;
-import model.money.Money;
 import model.player.ComputerAI;
+import model.player.Money;
 import model.player.Player;
-import model.pot.Pot;
 import tools.AlertBox;
 import tools.Pause;
 

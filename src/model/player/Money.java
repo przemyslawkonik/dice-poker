@@ -1,4 +1,4 @@
-package model.pot;
+package model.player;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -6,16 +6,16 @@ import javafx.beans.property.SimpleIntegerProperty;
 /**
  * Created by Przemysław Konik on 2017-06-07.
  */
-public class Pot {
+public class Money {
 
     private IntegerProperty value;
 
-    public Pot(int value) {
+    public Money(int value) {
         this.value = new SimpleIntegerProperty(value);
     }
 
-    public Pot() {
-        this.value = new SimpleIntegerProperty(0);
+    public Money() {
+        this.value.setValue(0);
     }
 
     public void increase(int value) {
@@ -24,7 +24,7 @@ public class Pot {
     }
 
     public void decrease(int value) {
-        int tmp = this.getValue() + value;
+        int tmp = this.getValue() - value;
         if(tmp < 0) {
             this.setValue(0);
         } else {

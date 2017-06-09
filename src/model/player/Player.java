@@ -2,8 +2,6 @@ package model.player;
 
 import model.combination.Arrangement;
 import model.dice.DiceBox;
-import model.money.Money;
-import model.pot.Pot;
 
 /**
  * Created by Przemysław Konik on 2017-06-07.

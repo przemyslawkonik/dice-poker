@@ -7,8 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.game.Pot;
 import model.player.Player;
-import model.pot.Pot;
 
 import java.io.IOException;
 
