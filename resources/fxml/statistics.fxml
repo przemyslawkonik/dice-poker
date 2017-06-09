@@ -6,9 +6,9 @@
 
 <HBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticsController">
    <children>
-      <TitledPane animated="false" contentDisplay="CENTER" text="Statistics" HBox.hgrow="ALWAYS">
+      <TitledPane fx:id="titledPaneStats" animated="false" contentDisplay="CENTER" text="Statistics" HBox.hgrow="ALWAYS">
          <content>
-            <GridPane fx:id="gridStats">
+            <GridPane>
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

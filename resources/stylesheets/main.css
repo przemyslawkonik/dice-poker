@@ -40,8 +40,19 @@
     -fx-text-fill: blue;
 }
 
-#gridStats {
-    -fx-background-color: #383838;
+#titledPaneStats .title {
+    -fx-background-color: #585858;
 }
+
+#titledPaneStats *.content {
+    -fx-background-color: #383838;
+    -fx-border-color: #585858;
+}
+
+#titledPaneStats {
+    -fx-text-fill: black;
+}
+
+
 
 
