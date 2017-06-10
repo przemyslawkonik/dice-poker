@@ -191,8 +191,9 @@ public class Arrangement {
                 return key*combination.getValue().getWorth();
             }
             case FULL_HOUSE: {
-                int key = Finder.findKey(3, map);
-                return key*combination.getValue().getWorth();
+                int key1 = Finder.findKey(3, map);
+                int key2 = Finder.findKey(2, map);
+                return key1*key2*combination.getValue().getWorth();
             }
             case BIG_STRAIGHT: {
                 return combination.getValue().getWorth();
