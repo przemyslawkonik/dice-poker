@@ -193,7 +193,11 @@ public class Arrangement {
             case FULL_HOUSE: {
                 int key1 = Finder.findKey(3, map);
                 int key2 = Finder.findKey(2, map);
-                return key1*key2*combination.getValue().getWorth();
+                if(key1 > key2) {
+                    return key1*combination.getValue().getWorth() + key2;
+                } else {
+                    return key2*combination.getValue().getWorth() + key1;
+                }
             }
             case BIG_STRAIGHT: {
                 return combination.getValue().getWorth();
@@ -211,7 +215,11 @@ public class Arrangement {
             }
             case TWO_PAIR: {
                 List<Integer> keys = Finder.findKeys(2, map);
-                return keys.get(0)*keys.get(1)*combination.getValue().getWorth();
+                if(keys.get(0) > keys.get(1)) {
+                    return keys.get(0)*combination.getValue().getWorth() + keys.get(1);
+                } else {
+                    return keys.get(1)*combination.getValue().getWorth() + keys.get(0);
+                }
             }
             case ONE_PAIR: {
                 int key = Finder.findKey(2, map);
