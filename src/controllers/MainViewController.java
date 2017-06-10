@@ -18,12 +18,10 @@ import model.player.Money;
 import model.player.Player;
 import tools.AlertBox;
 import tools.Pause;
+import tools.ResourceReader;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -83,7 +81,7 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setManualDesc();
+        manualText.setText(new ResourceReader().readText("manual"));
         initBindings();
         prepareView();
     }
@@ -227,30 +225,5 @@ public class MainViewController implements Initializable {
             }
         }
         resultLabel.setVisible(true);
-    }
-
-    private void setManualDesc() {
-        List<String> textList = new ArrayList<>();
-
-        try {
-            URL url = getClass().getResource("/manual.txt");
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-            String line;
-
-            while ((line = in.readLine()) != null) {
-                textList.add(line);
-            }
-            in.close();
-        }catch(MalformedURLException e) {
-            e.printStackTrace();
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-
-        String text = "";
-        for(String s : textList) {
-            text += s+"\n";
-        }
-        manualText.setText(text);
     }
 }
